@@ -1,0 +1,19 @@
+.Title {
+  font-size: 32px;
+  font-weight: 500;
+  color: #5b5ca2;
+}
+
+.LocationContainer {
+  display: flex;
+  font-size: 16px;
+  color: #f9fafb;
+  margin-top: 5px;
+}
+
+.Icon {
+  width: 15px;
+  height: 21px;
+  fill: #f9fafb;
+  margin-right: 3px;
+}

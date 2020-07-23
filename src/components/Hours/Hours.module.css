@@ -1,0 +1,10 @@
+.Hours {
+  width: calc(40vw - 35px);
+  max-width: 365px;
+  height: 300px;
+  background-color: rgb(51, 44, 80);
+
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  justify-self: right;
+}

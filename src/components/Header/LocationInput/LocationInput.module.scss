@@ -1,0 +1,52 @@
+.Form {
+  display: flex;
+  height: 30px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.Input {
+  font-size: 14px;
+  color: #f9fafb;
+  width: 130px;
+  padding-left: 5px;
+  background-color: inherit;
+
+  &::placeholder {
+    color: #a0a0a3;
+  }
+
+  &:focus {
+    border-bottom: 1px solid #f9fafb;
+  }
+}
+
+.Icon {
+  width: 30px;
+  height: 100%;
+  padding: 5px;
+  margin-top: -2px;
+  fill: #f9fafb;
+}
+
+.Error {
+  color: #ff0000;
+  position: absolute;
+  top: 110%;
+  left: 30px;
+}
+
+.FormInvalid {
+  .Input {
+    color: #ff0000;
+    border-bottom: 1px solid #ff0000;
+  }
+
+  .Input:focus {
+    border-bottom: 1px solid #ff0000;
+  }
+
+  .Icon {
+    fill: #ff0000;
+  }
+}

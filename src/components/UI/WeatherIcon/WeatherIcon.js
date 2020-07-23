@@ -1,0 +1,41 @@
+import React from 'react';
+
+import { ReactComponent as ThunderIcon } from '../../../assets/images/rain-thunder.svg';
+import { ReactComponent as CloudsIcon } from '../../../assets/images/cloud.svg';
+import { ReactComponent as LightCloudsIcon } from '../../../assets/images/cloud-sun.svg';
+import { ReactComponent as FogIcon } from '../../../assets/images/fog.svg';
+import { ReactComponent as LightRainIcon } from '../../../assets/images/light_rain.svg';
+import { ReactComponent as RainIcon } from '../../../assets/images/rain.svg';
+import { ReactComponent as SnowIcon } from '../../../assets/images/snow.svg';
+import { ReactComponent as SunIcon } from '../../../assets/images/sun.svg';
+
+export const WeatherIcon = (props) => {
+  let iconComponent = <LightRainIcon className={props.className} />;
+
+  if (props.id >= 200 && props.id <= 232)
+    iconComponent = <ThunderIcon className={props.className} />;
+
+  if (
+    (props.id >= 502 && props.id <= 511) ||
+    (props.id >= 521 && props.id <= 531)
+  )
+    iconComponent = <RainIcon className={props.className} />;
+
+  if (props.id >= 600 && props.id <= 622)
+    iconComponent = <SnowIcon className={props.className} />;
+
+  if (props.id >= 701 && props.id <= 781)
+    iconComponent = <FogIcon className={props.className} />;
+
+  if (props.id === 800) iconComponent = <SunIcon className={props.className} />;
+
+  if (props.id >= 801 && props.id <= 802)
+    iconComponent = <LightCloudsIcon className={props.className} />;
+    
+  if (props.id >= 803 && props.id <= 804)
+    iconComponent = <CloudsIcon className={props.className} />;
+
+  return iconComponent;
+};
+
+export default WeatherIcon;
