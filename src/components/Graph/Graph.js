@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import classes from './Graph.module.css';
+import classes from './Graph.module.scss';
 
 class Graph extends Component {
   render() {

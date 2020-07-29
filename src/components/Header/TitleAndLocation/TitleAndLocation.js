@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './TitleAndLocation.module.css';
+import classes from './TitleAndLocation.module.scss';
 import { ReactComponent as LocationIcon } from '../../../assets/images/location.svg';
 import Spinner from '../../UI/Spinner/Spinner';
 

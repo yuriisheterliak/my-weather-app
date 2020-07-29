@@ -9,30 +9,28 @@ import { ReactComponent as RainIcon } from '../../../assets/images/rain.svg';
 import { ReactComponent as SnowIcon } from '../../../assets/images/snow.svg';
 import { ReactComponent as SunIcon } from '../../../assets/images/sun.svg';
 
-export const WeatherIcon = (props) => {
+const WeatherIcon = (props) => {
+  let id = props.weatherID;
   let iconComponent = <LightRainIcon className={props.className} />;
 
-  if (props.id >= 200 && props.id <= 232)
+  if (id >= 200 && id <= 232)
     iconComponent = <ThunderIcon className={props.className} />;
 
-  if (
-    (props.id >= 502 && props.id <= 511) ||
-    (props.id >= 521 && props.id <= 531)
-  )
+  if ((id >= 502 && id <= 511) || (id >= 521 && id <= 531))
     iconComponent = <RainIcon className={props.className} />;
 
-  if (props.id >= 600 && props.id <= 622)
+  if (id >= 600 && id <= 622)
     iconComponent = <SnowIcon className={props.className} />;
 
-  if (props.id >= 701 && props.id <= 781)
+  if (id >= 701 && id <= 781)
     iconComponent = <FogIcon className={props.className} />;
 
-  if (props.id === 800) iconComponent = <SunIcon className={props.className} />;
+  if (id === 800) iconComponent = <SunIcon className={props.className} />;
 
-  if (props.id >= 801 && props.id <= 802)
+  if (id >= 801 && id <= 802)
     iconComponent = <LightCloudsIcon className={props.className} />;
-    
-  if (props.id >= 803 && props.id <= 804)
+
+  if (id >= 803 && id <= 804)
     iconComponent = <CloudsIcon className={props.className} />;
 
   return iconComponent;

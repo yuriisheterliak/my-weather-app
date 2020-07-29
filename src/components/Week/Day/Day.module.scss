@@ -33,8 +33,27 @@
 }
 
 .Active {
-  background-color: #10151E;
-  box-shadow: 0 0 10px 1px #10151E;
+  background-color: #10151e;
+  z-index: 100;
+
+  &:after {
+    display: none;
+  }
+
+  // Background, which hide sibling's borders
+  &::before {
+    content: '';
+    width: 102%;
+    height: 100%;
+    background-color: #10151e;
+    box-shadow: 0 0 10px 1px #10151e;
+
+    position: absolute;
+    top: 0q;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -100;
+  }
 }
 
 .TodayLabel {
@@ -43,7 +62,7 @@
   background-color: #5b5ca2;
   border-radius: 15px;
   padding: 2px 10px;
-  box-shadow: 0 0 5px 1px #10151E;
+  box-shadow: 0 0 5px 1px #10151e;
 
   position: absolute;
   top: -5%;
@@ -66,7 +85,7 @@
   margin-top: 5px;
 }
 
-.Weather {
+.Description {
   text-align: center;
   font-weight: 600;
   color: #445c72;

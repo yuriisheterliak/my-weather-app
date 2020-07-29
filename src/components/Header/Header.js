@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import classes from './Header.module.css';
+import classes from './Header.module.scss';
 import LocationInput from './LocationInput/LocationInput';
 import TitleAndLocation from './TitleAndLocation/TitleAndLocation';
 

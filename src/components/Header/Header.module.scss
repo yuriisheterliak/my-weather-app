@@ -1,0 +1,15 @@
+.Header {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+
+  @media (min-width: 600px) {
+    width: 80vw;
+    max-width: 800px;
+    padding: 0 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: center;
+  }
+}

@@ -13,11 +13,15 @@
   background-color: inherit;
 
   &::placeholder {
-    color: #a0a0a3;
+    color: #acacac;
   }
 
   &:focus {
     border-bottom: 1px solid #f9fafb;
+  }
+
+  @media (min-width: 600px) {
+    order: 1;
   }
 }
 
@@ -33,7 +37,10 @@
   color: #ff0000;
   position: absolute;
   top: 110%;
-  left: 30px;
+
+  @media (min-width: 600px) {
+    left: 30px;
+  }
 }
 
 .FormInvalid {

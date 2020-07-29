@@ -1,0 +1,60 @@
+.Hour {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid #243042;
+  color: #888888;
+  opacity: 0.5;
+  font-size: 14px;
+  padding: 0 15px;
+}
+
+.Active {
+  color: #f9fafb;
+  opacity: 1;
+  border: none;
+
+  position: relative;
+  z-index: 1;
+
+  .Icon {
+    fill: #f9fafb;
+  }
+
+  // Background, which hide sibling's borders
+  &::after {
+    content: '';
+    width: 100%;
+    height: 52px;
+    background-color: #101620;
+    box-shadow: 0 0 5px 1px #101620;
+
+    position: absolute;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.Time {
+  display: block;
+  max-width: 30px;
+  margin-right: 15px;
+}
+
+.ActiveLabel {
+  display: block;
+  font-size: 10px;
+  color: #8a1f3c;
+}
+
+.Icon {
+  height: 50px;
+  fill: #888888;
+  padding: 5px;
+  margin-right: 15px;
+}
+
+.Description {
+  margin-right: 15px;
+  flex-grow: 1;
+}

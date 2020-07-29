@@ -16,15 +16,19 @@ const LocationInput = (props) => {
       className={formClasses.join(' ')}
       onSubmit={(e) => props.onSubmitHandler(value, e)}
     >
-      <button type="submit">
-        <SearchIcon className={classes.Icon} />
-      </button>
+      <label htmlFor="searchInput" style={{ width: '0.1px', opacity: '0' }}>
+        Search
+      </label>
       <input
+        id="searchInput"
         className={classes.Input}
         type="text"
         placeholder="Your Location..."
         onChange={(e) => setValue(e.target.value)}
       />
+      <button type="submit" aria-label="Search" title="Search">
+        <SearchIcon className={classes.Icon} />
+      </button>
       {props.error !== null ? (
         <span className={classes.Error}>{props.error}</span>
       ) : null}

@@ -6,7 +6,6 @@ import WeatherIcon from '../../UI/WeatherIcon/WeatherIcon';
 
 const Day = (props) => {
   let dayClasses = [classes.Day, 'keen-slider__slide'];
-
   if (props.isActive) dayClasses.push(classes.Active);
 
   let dayComponent = (
@@ -15,16 +14,20 @@ const Day = (props) => {
     </div>
   );
 
-  if (props.isLoaded) {
+  if (!props.noData) {
     dayComponent = (
-      <div className={dayClasses.join(' ')}>
+      <div
+        className={dayClasses.join(' ')}
+        onClick={(e) => props.onClick(props.index, e)}
+        onMouseDown={(e) => props.onMouseDown(e)}
+      >
         {props.isToday === true ? (
           <span className={classes.TodayLabel}>Today</span>
         ) : null}
         <span className={classes.DayName}>{props.dayName}</span>
-        <WeatherIcon id={props.id} className={classes.Icon} />
-        <span className={classes.Temperature}>{props.temperature}°</span>
-        <span className={classes.Weather}>{props.weather}</span>
+        <WeatherIcon weatherID={props.weatherID} className={classes.Icon} />
+        <span className={classes.Temperature}>{props.temp}°</span>
+        <span className={classes.Description}>{props.desc}</span>
       </div>
     );
   }
