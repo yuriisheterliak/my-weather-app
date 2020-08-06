@@ -26,9 +26,18 @@ export const getThisDayHours = (hourlyWeather, thisDayUNIXDate, timezone) => {
   return result;
 };
 
-export const isCurrentHour = (date) => {
-  const diff = Date.now() - date.getTime();
+export const isCurrentHour = (timestamp) => {
+  const diff = Date.now() - timestamp * 1000;
   return diff < 3600000 && diff >= 0;
+};
+
+export const getFormattedTime = (timestamp, timeFormat, timezone) => {
+  return new Date(timestamp * 1000).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: timeFormat,
+    timeZone: timezone,
+  });
 };
 
 const getDayFromUNIX = (timestamp, timezone) => {

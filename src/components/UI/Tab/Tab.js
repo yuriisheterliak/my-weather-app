@@ -9,7 +9,7 @@ const Tab = (props) => {
   return (
     <button
       className={tabClasses.join(' ')}
-      onClick={() => props.onClick(props.timeFormat)}
+      onClick={() => props.onClick(...props.handlerParams)}
       title={props.title}
     >
       {props.children}

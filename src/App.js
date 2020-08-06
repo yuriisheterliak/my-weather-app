@@ -5,27 +5,24 @@ import { getThisDayHours } from './shared/utility';
 import Header from './components/Header/Header';
 import Week from './components/Week/Week';
 import Hours from './components/Hours/Hours';
-import Graph from './components/Graph/Graph';
+import GraphContainer from './components/GraphContainer/GraphContainer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      weather: null,
-      activeDay: 0,
-      error: null,
-      locationInfo: {
-        location: null,
-        country: null,
-        lat: null,
-        lng: null,
-      },
-      sliderCoordinates: {
-        clientX: null,
-        clientY: null,
-      },
-    };
-  }
+  state = {
+    weather: null,
+    activeDay: 0,
+    error: null,
+    locationInfo: {
+      location: null,
+      country: null,
+      lat: null,
+      lng: null,
+    },
+    sliderCoordinates: {
+      clientX: null,
+      clientY: null,
+    },
+  };
 
   componentDidMount() {
     this.getWeather('London');
@@ -85,6 +82,10 @@ class App extends Component {
             temp: hour.temp,
             desc: hour.weather[0].description,
             id: hour.weather[0].id,
+            precipation: hour.pop,
+            humidity: hour.humidity,
+            pressure: hour.pressure,
+            windSpeed: hour.wind_speed,
           });
         });
 
@@ -148,7 +149,10 @@ class App extends Component {
           handleOnMouseDown={this.handleOnMouseDown}
         />
         <Hours weather={this.state.weather} activeDay={this.state.activeDay} />
-        <Graph />
+        <GraphContainer
+          weather={this.state.weather}
+          activeDay={this.state.activeDay}
+        />
       </div>
     );
   }

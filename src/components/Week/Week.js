@@ -8,7 +8,7 @@ import { capitalizeFirstLetters, getDayName } from '../../shared/utility';
 const Week = (props) => {
   const [sliderRef] = useKeenSlider({
     mode: 'free',
-    slidesPerView: 1.8,
+    slidesPerView: 2,
     breakpoints: {
       '(min-width: 400px)': {
         slidesPerView: 2.4,

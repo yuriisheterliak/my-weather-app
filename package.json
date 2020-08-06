@@ -8,14 +8,18 @@
     "@testing-library/user-event": "^7.2.1",
     "keen-slider": "^5.2.2",
     "node-sass": "^4.14.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "simplebar-react": "^2.2.1"
+    "recharts": "^1.8.5",
+    "simplebar-react": "^2.2.1",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "analyze": "node scripts/analyze.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

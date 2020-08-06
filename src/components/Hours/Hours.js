@@ -3,18 +3,19 @@ import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
 import classes from './Hours.module.scss';
-import { capitalizeFirstLetters, isCurrentHour } from '../../shared/utility';
+import {
+  capitalizeFirstLetters,
+  isCurrentHour,
+  getFormattedTime,
+} from '../../shared/utility';
 import Hour from './Hour/Hour';
 import BlockHeader from '../UI/BlockHeader/BlockHeader';
 import Tab from '../UI/Tab/Tab';
 
 class Hours extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeFormat: 'h23',
-    };
-  }
+  state = {
+    timeFormat: 'h23',
+  };
 
   changeTimeFormat = (timeFormat) => {
     this.setState({ timeFormat: timeFormat });
@@ -31,17 +32,7 @@ class Hours extends Component {
 
     if (hoursData && hoursData.length) {
       hours = hoursData.map((hour, index) => {
-        const date = new Date(hour.dt * 1000);
-        const time = date.toLocaleString('en-US', {
-          hour: 'numeric',
-          minute: 'numeric',
-          hourCycle: this.state.timeFormat,
-          timeZone: timezone,
-        });
-
-        let active = false;
-        if (isCurrentHour(date)) active = true;
-
+        const time = getFormattedTime(hour.dt, this.state.timeFormat, timezone);
         const temp = Math.round(hour.temp);
         const desc = capitalizeFirstLetters(hour.desc);
 
@@ -52,7 +43,7 @@ class Hours extends Component {
             temp={temp}
             weatherID={hour.id}
             desc={desc}
-            active={active}
+            active={isCurrentHour(hour.dt)}
           />
         );
       });
@@ -63,7 +54,7 @@ class Hours extends Component {
         <BlockHeader>
           <Tab
             onClick={this.changeTimeFormat}
-            timeFormat="h23"
+            handlerParams={['h23']}
             active={this.state.timeFormat === 'h23'}
             title="24-hour format"
           >
@@ -71,7 +62,7 @@ class Hours extends Component {
           </Tab>
           <Tab
             onClick={this.changeTimeFormat}
-            timeFormat="h12"
+            handlerParams={['h12']}
             active={this.state.timeFormat === 'h12'}
             title="12-hour format"
           >

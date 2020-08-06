@@ -1,6 +1,6 @@
-.Graph {
-  height: 300px;
-  background-color: rgb(81, 73, 192);
+.GraphContainer {
+  background-color: #131b2a;
+  align-self: start;
 
   grid-column: 2 / 4;
   grid-row: 4 / 5;
@@ -12,10 +12,17 @@
   }
 
   @media (min-width: 800px) {
-    width: calc(40vw - 40px);
+    width: calc(40vw - 30px);
     max-width: 365px;
     grid-column: 3 / 4;
     grid-row: 3 / 4;
     justify-self: left;
   }
+}
+
+.NoInfo {
+  font-size: 16px;
+  text-align: center;
+  color: #f9fafb;
+  padding: 50px 0;
 }
