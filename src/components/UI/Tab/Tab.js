@@ -1,15 +1,18 @@
 import React from 'react';
 
 import classes from './Tab.module.scss';
+import withFocusShadow from '../../../hoc/withFocusShadow';
 
 const Tab = (props) => {
-  let tabClasses = [classes.Tab];
+  const { extraClass, ...restProps } = props;
+
+  let tabClasses = [classes.Tab, extraClass];
   if (props.active) tabClasses.push(classes.Active);
 
   return (
     <button
       className={tabClasses.join(' ')}
-      onClick={() => props.onClick(...props.handlerParams)}
+      onClick={() => props.onClick(...restProps.handlerParams)}
       title={props.title}
     >
       {props.children}
@@ -17,4 +20,4 @@ const Tab = (props) => {
   );
 };
 
-export default Tab;
+export default withFocusShadow(Tab);

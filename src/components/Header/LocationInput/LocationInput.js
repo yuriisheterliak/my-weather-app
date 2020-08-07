@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import classes from './LocationInput.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
+import Button from '../../UI/Button/Button';
 
 const LocationInput = (props) => {
   const [value, setValue] = useState('');
@@ -26,9 +27,9 @@ const LocationInput = (props) => {
         placeholder="Your Location..."
         onChange={(e) => setValue(e.target.value)}
       />
-      <button type="submit" aria-label="Search" title="Search">
+      <Button type="submit" aria-label="Search" title="Search">
         <SearchIcon className={classes.Icon} />
-      </button>
+      </Button>
       {props.error !== null ? (
         <span className={classes.Error}>{props.error}</span>
       ) : null}

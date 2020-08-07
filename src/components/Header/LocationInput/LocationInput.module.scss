@@ -38,7 +38,7 @@
 }
 
 .Error {
-  color: #ff0000;
+  color: #dd0000;
   position: absolute;
   top: 110%;
 
@@ -49,15 +49,15 @@
 
 .FormInvalid {
   .Input {
-    color: #ff0000;
-    border-bottom: 1px solid #ff0000;
+    color: #dd0000;
+    border-bottom: 1px solid #dd0000;
   }
 
   .Input:focus {
-    border-bottom: 1px solid #ff0000;
+    border-bottom: 1px solid #dd0000;
   }
 
   .Icon {
-    fill: #ff0000;
+    fill: #dd0000;
   }
 }
