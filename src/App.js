@@ -82,7 +82,7 @@ class App extends Component {
             temp: hour.temp,
             desc: hour.weather[0].description,
             id: hour.weather[0].id,
-            precipation: hour.pop,
+            precipitation: hour.pop,
             humidity: hour.humidity,
             pressure: hour.pressure,
             windSpeed: hour.wind_speed,

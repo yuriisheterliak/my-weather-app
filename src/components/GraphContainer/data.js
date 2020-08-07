@@ -1,13 +1,13 @@
 export const tabsData = [
-  { name: 'Prec&Hum', description: 'Precipitation and humidity' },
+  { name: 'Prec&Hum', description: 'Precipitation and Humidity' },
   { name: 'Pressure', description: 'Pressure' },
   { name: 'Wind Speed', description: 'Wind Speed' },
 ];
 
 export const precAndHumData = [
   {
-    name: 'precipation',
-    description: 'Chance of precipation',
+    name: 'precipitation',
+    description: 'Chance of Precipitation',
     unit: '%',
     color: '#5A5DA0',
   },

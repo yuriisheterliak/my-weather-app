@@ -24,7 +24,7 @@ class GraphContainer extends Component {
       graphData = hoursData.map((hour) => {
         return {
           name: getFormattedTime(hour.dt, 'h23', timezone),
-          precipation: parseInt(hour.precipation * 100),
+          precipitation: parseInt(hour.precipitation * 100),
           humidity: hour.humidity,
           pressure: hour.pressure,
           windSpeed: hour.windSpeed,

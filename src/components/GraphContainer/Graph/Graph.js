@@ -42,7 +42,7 @@ const Graph = (props) => (
       <YAxis
         stroke="#334759"
         tickLine={false}
-        domain={props.commonData[0].name === 'precipation' ? [0, 100] : []}
+        domain={props.commonData[0].name === 'precipitation' ? [0, 100] : []}
       />
       <CartesianGrid stroke="#273949" />
       <Tooltip />
