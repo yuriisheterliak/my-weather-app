@@ -13,7 +13,7 @@ import {
 import CustomLegend from './CustomLegend/CustomLegend';
 
 const Graph = (props) => (
-  <ResponsiveContainer aspect={1.5}>
+  <ResponsiveContainer aspect={1.5} maxHeight={300}>
     <AreaChart
       data={props.graphData}
       margin={{

@@ -16,10 +16,10 @@ const Week = (props) => {
       '(min-width: 500px)': {
         slidesPerView: 3,
       },
-      '(min-width: 700px)': {
+      '(min-width: 650px)': {
         slidesPerView: 4,
       },
-      '(min-width: 900px)': {
+      '(min-width: 800px)': {
         slidesPerView: 5,
       },
     },

@@ -6,13 +6,13 @@
   grid-row: 4 / 5;
 
   @media (min-width: 600px) {
-    width: calc(80vw - 40px);
+    width: calc(90vw - 40px);
     max-width: 800px;
     justify-self: center;
   }
 
   @media (min-width: 800px) {
-    width: calc(40vw - 30px);
+    width: calc(45vw - 30px);
     max-width: 365px;
     grid-column: 3 / 4;
     grid-row: 3 / 4;
