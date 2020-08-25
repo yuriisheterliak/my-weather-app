@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
-import './App.scss';
 import { getThisDayHours } from './shared/utility';
 import Header from './components/Header/Header';
 import Week from './components/Week/Week';
 import Hours from './components/Hours/Hours';
 import GraphContainer from './components/GraphContainer/GraphContainer';
+import classes from './App.module.scss';
 
 class App extends Component {
   state = {
     weather: null,
     activeDay: 0,
+    weatherIsLoading: false,
+    locationIsLoading: false,
     error: null,
     locationInfo: {
       location: null,
@@ -33,12 +35,14 @@ class App extends Component {
     const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
 
     try {
+      this.setState({ locationIsLoading: true, weatherIsLoading: true });
       const response = await fetch(geocodingURL);
       const data = await response.json();
       const locationData = data.results[0];
 
       this.setState({
         error: null,
+        locationIsLoading: false,
         locationInfo: {
           location:
             locationData.components.city ||
@@ -51,7 +55,16 @@ class App extends Component {
         },
       });
     } catch {
-      this.setState({ error: 'Geocoding Error! Try again...' });
+      this.setState({
+        error: 'Geocoding API Error! Try again...',
+        locationIsLoading: false,
+        locationInfo: {
+          location: null,
+          country: null,
+          lat: null,
+          lng: null,
+        },
+      });
     }
   };
 
@@ -101,10 +114,15 @@ class App extends Component {
 
       this.setState({
         error: null,
+        weatherIsLoading: false,
         weather: weather,
       });
     } catch (err) {
-      this.setState({ error: 'Weather Error! Try again...' });
+      this.setState({
+        error: 'Weather API Error! Try again...',
+        weatherIsLoading: false,
+        weather: null,
+      });
     }
   };
 
@@ -132,27 +150,44 @@ class App extends Component {
   };
 
   render() {
+    let mainContent = (
+      <>
+        <Week
+          weather={this.state.weather}
+          activeDay={this.state.activeDay}
+          isLoading={this.state.weatherIsLoading}
+          handleActiveDayChange={this.handleActiveDayChange}
+          handleOnMouseDown={this.handleOnMouseDown}
+        />
+        <Hours
+          weather={this.state.weather}
+          activeDay={this.state.activeDay}
+          isLoading={this.state.weatherIsLoading}
+        />
+        <GraphContainer
+          weather={this.state.weather}
+          activeDay={this.state.activeDay}
+          isLoading={this.state.weatherIsLoading}
+        />
+      </>
+    );
+
+    if (this.state.error) {
+      mainContent = <div className={classes.Error}>Something went wrong!</div>;
+    }
+
     return (
-      <div className="App">
+      <div className={classes.App}>
         <Header
           onSubmitHandler={this.onSubmitHandler}
           location={{
             location: this.state.locationInfo.location,
             country: this.state.locationInfo.country,
           }}
+          isLoading={this.state.locationIsLoading}
           error={this.state.error}
         />
-        <Week
-          weather={this.state.weather}
-          activeDay={this.state.activeDay}
-          handleActiveDayChange={this.handleActiveDayChange}
-          handleOnMouseDown={this.handleOnMouseDown}
-        />
-        <Hours weather={this.state.weather} activeDay={this.state.activeDay} />
-        <GraphContainer
-          weather={this.state.weather}
-          activeDay={this.state.activeDay}
-        />
+        {mainContent}
       </div>
     );
   }

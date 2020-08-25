@@ -19,7 +19,7 @@ const Graph = (props) => (
       margin={{
         top: 20,
         right: 25,
-        left: props.commonData[0].name === 'pressure' ? -10 : -25,
+        left: props.commonData[0].name === 'pressure' ? -10 : -20,
         bottom: 0,
       }}
     >

@@ -29,9 +29,9 @@ const Week = (props) => {
 
   let days = [];
 
-  if (props.weather === null) {
+  if (props.weather === null || props.isLoading) {
     for (let i = 0; i < 7; i++) {
-      days.push(<Day key={i} noData />);
+      days.push(<Day key={i} isLoading />);
     }
   } else {
     days = props.weather.map((day, index) => {

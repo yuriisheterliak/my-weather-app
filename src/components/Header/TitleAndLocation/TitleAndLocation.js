@@ -5,18 +5,25 @@ import { ReactComponent as LocationIcon } from '../../../assets/images/location.
 import Spinner from '../../UI/Spinner/Spinner';
 
 const TitleAndLocation = (props) => {
-  const location = props.location.location ? (
+  let locationText =
+    props.location.location || props.location.country
+      ? `${props.location.location}, ${props.location.country}`
+      : 'Location not found!';
+
+  let location = (
     <div className={classes.LocationContainer}>
       <LocationIcon className={classes.Icon} />
-      <span>
-        {props.location.location}, {props.location.country}
-      </span>
-    </div>
-  ) : (
-    <div className={classes.LocationContainer}>
-      <Spinner small/>
+      <span>{locationText}</span>
     </div>
   );
+
+  if (props.isLoading) {
+    location = (
+      <div className={classes.LocationContainer}>
+        <Spinner small />
+      </div>
+    );
+  }
 
   return (
     <div>

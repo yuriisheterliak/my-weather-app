@@ -6,6 +6,7 @@ import { tabsData, precAndHumData, pressureData, windSpeedData } from './data';
 import BlockHeader from '../UI/BlockHeader/BlockHeader';
 import Tab from '../UI/Tab/Tab';
 import Graph from './Graph/Graph';
+import Spinner from '../UI/Spinner/Spinner';
 
 class GraphContainer extends Component {
   state = {
@@ -43,6 +44,14 @@ class GraphContainer extends Component {
     if (graphData && graphData.length) {
       graph = <Graph graphData={graphData} commonData={commonData} />;
     } else graph = <div className={classes.NoInfo}>No Information</div>;
+
+    if (this.props.isLoading) {
+      graph = (
+        <div className={classes.Error}>
+          <Spinner big />
+        </div>
+      );
+    }
 
     return (
       <div className={classes.GraphContainer}>

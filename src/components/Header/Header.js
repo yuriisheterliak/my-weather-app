@@ -6,7 +6,7 @@ import TitleAndLocation from './TitleAndLocation/TitleAndLocation';
 
 const Header = (props) => (
   <div className={classes.Header}>
-    <TitleAndLocation location={props.location} />
+    <TitleAndLocation location={props.location} isLoading={props.isLoading} />
     <LocationInput
       onSubmitHandler={props.onSubmitHandler}
       error={props.error}

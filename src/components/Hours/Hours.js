@@ -11,6 +11,7 @@ import {
 import Hour from './Hour/Hour';
 import BlockHeader from '../UI/BlockHeader/BlockHeader';
 import Tab from '../UI/Tab/Tab';
+import Spinner from '../UI/Spinner/Spinner';
 
 class Hours extends Component {
   state = {
@@ -47,6 +48,14 @@ class Hours extends Component {
           />
         );
       });
+    }
+
+    if (this.props.isLoading) {
+      hours = (
+        <div className={classes.Error}>
+          <Spinner big />
+        </div>
+      );
     }
 
     return (

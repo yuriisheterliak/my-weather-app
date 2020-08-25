@@ -5,7 +5,7 @@
   grid-row: 3 / 4;
 
   @media (min-width: 600px) {
-    width: calc(90vw - 40px);;
+    width: calc(90vw - 40px);
     max-width: 800px;
     justify-self: center;
   }
@@ -27,4 +27,11 @@
   text-align: center;
   color: #f9fafb;
   margin-top: 130px;
+}
+
+.Error {
+  height: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
