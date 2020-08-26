@@ -43,7 +43,7 @@ class GraphContainer extends Component {
 
     if (graphData && graphData.length) {
       graph = <Graph graphData={graphData} commonData={commonData} />;
-    } else graph = <div className={classes.NoInfo}>No Information</div>;
+    } else graph = <div className={classes.NoInfo}>No information</div>;
 
     if (this.props.isLoading) {
       graph = (

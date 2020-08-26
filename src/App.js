@@ -27,7 +27,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.getWeather('London');
+    this.getWeather('Kyiv');
   }
 
   getLocationInfo = async (locationName) => {
