@@ -3,7 +3,11 @@ import { useKeenSlider } from 'keen-slider/react';
 
 import classes from './Week.module.scss';
 import Day from './Day/Day';
-import { capitalizeFirstLetters, getDayName } from '../../shared/utility';
+import {
+  toFahrenheit,
+  capitalizeFirstLetters,
+  getDayName,
+} from '../../shared/utility';
 
 const Week = (props) => {
   const [sliderRef] = useKeenSlider({
@@ -36,8 +40,11 @@ const Week = (props) => {
   } else {
     days = props.weather.map((day, index) => {
       const dayName = getDayName(new Date(day.dt * 1000));
-      const temp = Math.round(day.temp);
       const desc = capitalizeFirstLetters(day.desc);
+      let temp = Math.round(day.temp);
+      if (props.units === 'fahrenheit') {
+        temp = Math.round(toFahrenheit(day.temp));
+      }
 
       return (
         <Day
@@ -49,8 +56,8 @@ const Week = (props) => {
           weatherID={day.id}
           isToday={index === 0}
           isActive={index === props.activeDay}
-          onClick={props.handleActiveDayChange}
-          onMouseDown={props.handleOnMouseDown}
+          onClick={props.changeActiveDayHandler}
+          onMouseDown={props.onMouseDownHandler}
         />
       );
     });

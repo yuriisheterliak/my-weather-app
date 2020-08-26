@@ -1,3 +1,5 @@
+export const toFahrenheit = (celsius) => (celsius * 9) / 5 + 32;
+
 export const capitalizeFirstLetters = (str) => {
   let words = str.split(' ');
 

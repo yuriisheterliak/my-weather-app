@@ -4,6 +4,7 @@ import 'simplebar/dist/simplebar.min.css';
 
 import classes from './Hours.module.scss';
 import {
+  toFahrenheit,
   capitalizeFirstLetters,
   isCurrentHour,
   getFormattedTime,
@@ -34,8 +35,11 @@ class Hours extends Component {
     if (hoursData && hoursData.length) {
       hours = hoursData.map((hour, index) => {
         const time = getFormattedTime(hour.dt, this.state.timeFormat, timezone);
-        const temp = Math.round(hour.temp);
         const desc = capitalizeFirstLetters(hour.desc);
+        let temp = Math.round(hour.temp);
+        if (this.props.units === 'fahrenheit') {
+          temp = Math.round(toFahrenheit(hour.temp));
+        }
 
         return (
           <Hour

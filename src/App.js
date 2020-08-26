@@ -9,6 +9,7 @@ import classes from './App.module.scss';
 
 class App extends Component {
   state = {
+    units: 'celsius',
     weather: null,
     activeDay: 0,
     weatherIsLoading: false,
@@ -133,14 +134,14 @@ class App extends Component {
     if (this.state.error === null) e.target.reset();
   };
 
-  handleActiveDayChange = (index, e) => {
+  changeActiveDayHandler = (index, e) => {
     const { clientX, clientY } = this.state.sliderCoordinates;
     if (clientX === e.clientX || clientY === e.clientY) {
       this.setState({ activeDay: index });
     }
   };
 
-  handleOnMouseDown = (e) => {
+  onMouseDownSliderHandler = (e) => {
     this.setState({
       sliderCoordinates: {
         clientX: e.clientX,
@@ -149,19 +150,29 @@ class App extends Component {
     });
   };
 
+  onChangeUnitsHandler = (e) => {
+    if (e.target.checked) {
+      this.setState({ units: 'fahrenheit' });
+    } else {
+      this.setState({ units: 'celsius' });
+    }
+  };
+
   render() {
     let mainContent = (
       <>
         <Week
           weather={this.state.weather}
           activeDay={this.state.activeDay}
+          units={this.state.units}
           isLoading={this.state.weatherIsLoading}
-          handleActiveDayChange={this.handleActiveDayChange}
-          handleOnMouseDown={this.handleOnMouseDown}
+          changeActiveDayHandler={this.changeActiveDayHandler}
+          onMouseDownHandler={this.onMouseDownSliderHandler}
         />
         <Hours
           weather={this.state.weather}
           activeDay={this.state.activeDay}
+          units={this.state.units}
           isLoading={this.state.weatherIsLoading}
         />
         <GraphContainer
@@ -180,6 +191,7 @@ class App extends Component {
       <div className={classes.App}>
         <Header
           onSubmitHandler={this.onSubmitHandler}
+          onChangeUnitsHandler={this.onChangeUnitsHandler}
           location={{
             location: this.state.locationInfo.location,
             country: this.state.locationInfo.country,

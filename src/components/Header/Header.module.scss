@@ -1,6 +1,7 @@
 .Header {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-column-gap: 10px;
+
   grid-column: 2 / 4;
   grid-row: 1 / 2;
   margin-bottom: 5px;
@@ -9,8 +10,7 @@
     width: 90vw;
     max-width: 800px;
     padding: 0 20px;
-    flex-direction: row;
-    justify-content: space-between;
     justify-self: center;
+    grid-template-columns: 1fr 1fr;
   }
 }
