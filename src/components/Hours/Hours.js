@@ -10,9 +10,9 @@ import {
   getFormattedTime,
 } from '../../shared/utility';
 import Hour from './Hour/Hour';
-import BlockHeader from '../UI/BlockHeader/BlockHeader';
-import Tab from '../UI/Tab/Tab';
-import Spinner from '../UI/Spinner/Spinner';
+import BlockHeader from '../common/BlockHeader/BlockHeader';
+import Tab from '../common/Tab/Tab';
+import Spinner from '../common/Spinner/Spinner';
 
 class Hours extends Component {
   state = {

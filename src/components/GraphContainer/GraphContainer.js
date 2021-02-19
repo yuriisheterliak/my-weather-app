@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import classes from './GraphContainer.module.scss';
 import { getFormattedTime } from '../../shared/utility';
 import { tabsData, precAndHumData, pressureData, windSpeedData } from './data';
-import BlockHeader from '../UI/BlockHeader/BlockHeader';
-import Tab from '../UI/Tab/Tab';
+import BlockHeader from '../common/BlockHeader/BlockHeader';
+import Tab from '../common/Tab/Tab';
 import Graph from './Graph/Graph';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../common/Spinner/Spinner';
 
 class GraphContainer extends Component {
   state = {

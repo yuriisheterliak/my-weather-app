@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Hour.module.scss';
-import WeatherIcon from '../../UI/WeatherIcon/WeatherIcon';
+import WeatherIcon from '../../common/WeatherIcon/WeatherIcon';
 
 const Hour = (props) => {
   let hourClasses = [classes.Hour];

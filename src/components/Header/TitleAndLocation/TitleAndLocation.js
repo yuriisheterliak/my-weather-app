@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './TitleAndLocation.module.scss';
 import { ReactComponent as LocationIcon } from '../../../assets/images/location.svg';
-import Spinner from '../../UI/Spinner/Spinner';
+import Spinner from '../../common/Spinner/Spinner';
 
 const TitleAndLocation = (props) => {
   let locationText =

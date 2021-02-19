@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import classes from './LocationInput.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
-import Button from '../../UI/Button/Button';
+import Button from '../../common/Button/Button';
 
 const LocationInput = (props) => {
   const [value, setValue] = useState('');

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import classes from './Day.module.scss';
-import Spinner from '../../UI/Spinner/Spinner';
-import WeatherIcon from '../../UI/WeatherIcon/WeatherIcon';
+import Spinner from '../../common/Spinner/Spinner';
+import WeatherIcon from '../../common/WeatherIcon/WeatherIcon';
 
 const Day = (props) => {
   let dayClasses = [classes.Day, 'keen-slider__slide'];
