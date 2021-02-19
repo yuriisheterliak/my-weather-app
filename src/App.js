@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { getThisDayHours } from './shared/utility';
+import { formatWeather } from './other/weatherFormatter';
 import Header from './components/Header/Header';
 import Week from './components/Week/Week';
 import Hours from './components/Hours/Hours';
@@ -81,37 +81,7 @@ class App extends Component {
     try {
       const response = await fetch(weatherURL);
       const data = await response.json();
-
-      let weather = [];
-
-      data.daily.forEach((day, index) => {
-        if (index === 7) return;
-
-        let hoursWeather = getThisDayHours(data.hourly, day.dt, data.timezone);
-        let sortedHoursWeather = [];
-
-        hoursWeather.forEach((hour) => {
-          sortedHoursWeather.push({
-            dt: hour.dt,
-            temp: hour.temp,
-            desc: hour.weather[0].description,
-            id: hour.weather[0].id,
-            precipitation: hour.pop,
-            humidity: hour.humidity,
-            pressure: hour.pressure,
-            windSpeed: hour.wind_speed,
-          });
-        });
-
-        weather.push({
-          dt: day.dt,
-          timezone: data.timezone,
-          temp: day.temp.day,
-          desc: day.weather[0].description,
-          id: day.weather[0].id,
-          hoursWeather: sortedHoursWeather,
-        });
-      });
+      const weather = formatWeather(data);
 
       this.setState({
         error: null,

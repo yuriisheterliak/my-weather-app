@@ -7,7 +7,7 @@ import {
   toFahrenheit,
   capitalizeFirstLetters,
   getDayName,
-} from '../../shared/utility';
+} from '../../shared/utilities';
 
 const Week = (props) => {
   const [sliderRef] = useKeenSlider({
@@ -39,7 +39,7 @@ const Week = (props) => {
     }
   } else {
     days = props.weather.map((day, index) => {
-      const dayName = getDayName(new Date(day.dt * 1000));
+      const dayName = getDayName(day.dt);
       const desc = capitalizeFirstLetters(day.desc);
       let temp = Math.round(day.temp);
       if (props.units === 'fahrenheit') {

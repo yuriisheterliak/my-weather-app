@@ -8,7 +8,7 @@ import {
   capitalizeFirstLetters,
   isCurrentHour,
   getFormattedTime,
-} from '../../shared/utility';
+} from '../../shared/utilities';
 import Hour from './Hour/Hour';
 import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
@@ -26,7 +26,7 @@ class Hours extends Component {
   render() {
     let hoursData, timezone;
     if (this.props.weather) {
-      hoursData = this.props.weather[this.props.activeDay].hoursWeather;
+      hoursData = this.props.weather[this.props.activeDay].hourlyWeather;
       timezone = this.props.weather[this.props.activeDay].timezone;
     }
 

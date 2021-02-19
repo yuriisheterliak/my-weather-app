@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './GraphContainer.module.scss';
-import { getFormattedTime } from '../../shared/utility';
+import { getFormattedTime } from '../../shared/utilities';
 import { tabsData, precAndHumData, pressureData, windSpeedData } from './data';
 import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
@@ -19,7 +19,7 @@ class GraphContainer extends Component {
     let graph, hoursData, timezone, graphData, commonData;
 
     if (this.props.weather) {
-      hoursData = this.props.weather[this.props.activeDay].hoursWeather;
+      hoursData = this.props.weather[this.props.activeDay].hourlyWeather;
       timezone = this.props.weather[this.props.activeDay].timezone;
 
       graphData = hoursData.map((hour) => {
