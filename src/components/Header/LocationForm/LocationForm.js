@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import classes from './LocationInput.module.scss';
+import classes from './LocationForm.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import Button from '../../common/Button/Button';
 
-const LocationInput = (props) => {
+const LocationForm = (props) => {
   const [value, setValue] = useState('');
 
   let formClasses = [classes.Form];
@@ -37,4 +37,4 @@ const LocationInput = (props) => {
   );
 };
 
-export default LocationInput;
+export default LocationForm;
