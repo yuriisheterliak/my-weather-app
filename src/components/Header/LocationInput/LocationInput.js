@@ -15,7 +15,7 @@ const LocationInput = (props) => {
   return (
     <form
       className={formClasses.join(' ')}
-      onSubmit={(e) => props.onSubmitHandler(value, e)}
+      onSubmit={(e) => props.onSubmit(value, e)}
     >
       <label htmlFor="searchInput" style={{ width: '0.1px', opacity: '0' }}>
         Search

@@ -21,10 +21,7 @@ class App extends Component {
       lat: null,
       lng: null,
     },
-    sliderCoordinates: {
-      clientX: null,
-      clientY: null,
-    },
+    sliderMouseDownClientX: null,
   };
 
   componentDidMount() {
@@ -97,30 +94,24 @@ class App extends Component {
     }
   };
 
-  onSubmitHandler = async (value, e) => {
+  handleLocationSubmit = async (value, e) => {
     e.preventDefault();
     e.persist();
     await this.getWeather(value);
     if (this.state.error === null) e.target.reset();
   };
 
-  changeActiveDayHandler = (index, e) => {
-    const { clientX, clientY } = this.state.sliderCoordinates;
-    if (clientX === e.clientX || clientY === e.clientY) {
-      this.setState({ activeDay: index });
+  changeActiveDay = (dayIndex, e) => {
+    if (this.state.sliderMouseDownClientX === e.clientX) {
+      this.setState({ activeDay: dayIndex });
     }
   };
 
-  onMouseDownSliderHandler = (e) => {
-    this.setState({
-      sliderCoordinates: {
-        clientX: e.clientX,
-        clientY: e.clientY,
-      },
-    });
+  saveSliderMouseDownClientX = (e) => {
+    this.setState({ sliderMouseDownClientX: e.clientX });
   };
 
-  onChangeUnitsHandler = (e) => {
+  handleTempSwitching = (e) => {
     if (e.target.checked) {
       this.setState({ units: 'fahrenheit' });
     } else {
@@ -136,8 +127,8 @@ class App extends Component {
           activeDay={this.state.activeDay}
           units={this.state.units}
           isLoading={this.state.weatherIsLoading}
-          changeActiveDayHandler={this.changeActiveDayHandler}
-          onMouseDownHandler={this.onMouseDownSliderHandler}
+          changeActiveDay={this.changeActiveDay}
+          saveSliderMouseDownClientX={this.saveSliderMouseDownClientX}
         />
         <Hours
           weather={this.state.weather}
@@ -160,8 +151,8 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Header
-          onSubmitHandler={this.onSubmitHandler}
-          onChangeUnitsHandler={this.onChangeUnitsHandler}
+          handleLocationSubmit={this.handleLocationSubmit}
+          handleTempSwitching={this.handleTempSwitching}
           location={{
             location: this.state.locationInfo.location,
             country: this.state.locationInfo.country,

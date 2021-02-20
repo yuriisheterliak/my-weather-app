@@ -8,9 +8,9 @@ import TempSwitcher from './TempSwitcher/TempSwitcher';
 const Header = (props) => (
   <div className={classes.Header}>
     <TitleAndLocation location={props.location} isLoading={props.isLoading} />
-    <TempSwitcher onChangeHandler={props.onChangeUnitsHandler} />
+    <TempSwitcher onChange={props.handleTempSwitching} />
     <LocationInput
-      onSubmitHandler={props.onSubmitHandler}
+      onSubmit={props.handleLocationSubmit}
       error={props.error}
     />
   </div>

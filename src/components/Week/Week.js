@@ -56,8 +56,8 @@ const Week = (props) => {
           weatherID={day.id}
           isToday={index === 0}
           isActive={index === props.activeDay}
-          onClick={props.changeActiveDayHandler}
-          onMouseDown={props.onMouseDownHandler}
+          onClick={props.changeActiveDay}
+          onMouseDown={props.saveSliderMouseDownClientX}
         />
       );
     });
