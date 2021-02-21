@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import classes from './GraphContainer.module.scss';
 import { getFormattedTime } from '../../shared/utilities';
@@ -8,7 +8,7 @@ import Tab from '../common/Tab/Tab';
 import Graph from './Graph/Graph';
 import Spinner from '../common/Spinner/Spinner';
 
-class GraphContainer extends Component {
+class GraphContainer extends PureComponent {
   state = {
     activeTab: 'Prec&Hum',
   };

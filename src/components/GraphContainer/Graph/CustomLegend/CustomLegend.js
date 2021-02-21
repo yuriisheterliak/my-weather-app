@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const CustomLegend = (props) => (
+const CustomLegend = memo((props) => (
   <ul>
     {props.commonData.map((item, index) => (
       <li
@@ -25,6 +25,6 @@ const CustomLegend = (props) => (
       </li>
     ))}
   </ul>
-);
+));
 
 export default CustomLegend;

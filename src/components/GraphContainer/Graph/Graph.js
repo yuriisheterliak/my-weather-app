@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -12,7 +12,7 @@ import {
 
 import CustomLegend from './CustomLegend/CustomLegend';
 
-const Graph = (props) => (
+const Graph = memo((props) => (
   <ResponsiveContainer aspect={1.5} maxHeight={300}>
     <AreaChart
       data={props.graphData}
@@ -63,6 +63,6 @@ const Graph = (props) => (
       />
     </AreaChart>
   </ResponsiveContainer>
-);
+));
 
 export default Graph;
