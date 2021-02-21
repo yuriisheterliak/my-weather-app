@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import classes from './Day.module.scss';
 import Spinner from '../../common/Spinner/Spinner';
 import WeatherIcon from '../../common/WeatherIcon/WeatherIcon';
 
-const Day = (props) => {
+const Day = memo((props) => {
   let dayClasses = [classes.Day, 'keen-slider__slide'];
   if (props.isActive) dayClasses.push(classes.Active);
 
@@ -33,6 +33,6 @@ const Day = (props) => {
   }
 
   return dayComponent;
-};
+});
 
 export default Day;
