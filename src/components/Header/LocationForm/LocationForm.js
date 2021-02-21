@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 
 import classes from './LocationForm.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import Button from '../../common/Button/Button';
 
-const LocationForm = (props) => {
+const LocationForm = memo((props) => {
   const [value, setValue] = useState('');
 
   let formClasses = [classes.Form];
@@ -35,6 +35,6 @@ const LocationForm = (props) => {
       ) : null}
     </form>
   );
-};
+});
 
 export default LocationForm;

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import classes from './TitleAndLocation.module.scss';
 import { ReactComponent as LocationIcon } from '../../../assets/images/location.svg';
 import Spinner from '../../common/Spinner/Spinner';
 
-const TitleAndLocation = (props) => {
-  let locationText =
-    props.location.location || props.location.country
-      ? `${props.location.location}, ${props.location.country}`
+const TitleAndLocation = memo((props) => {
+  const locationText =
+    props.location || props.country
+      ? `${props.location}, ${props.country}`
       : 'Location not found!';
 
   let location = (
@@ -31,6 +31,6 @@ const TitleAndLocation = (props) => {
       {location}
     </div>
   );
-};
+});
 
 export default TitleAndLocation;

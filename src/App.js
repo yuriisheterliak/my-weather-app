@@ -153,10 +153,8 @@ class App extends Component {
         <Header
           handleLocationSubmit={this.handleLocationSubmit}
           handleTempSwitching={this.handleTempSwitching}
-          location={{
-            location: this.state.locationInfo.location,
-            country: this.state.locationInfo.country,
-          }}
+          location={this.state.locationInfo.location}
+          country={this.state.locationInfo.country}
           isLoading={this.state.locationIsLoading}
           error={this.state.error}
         />
