@@ -1,4 +1,4 @@
-import { getDayOfMonth } from '../shared/utilities';
+import { getDayOfMonth } from '../../shared/utilities';
 
 export const formatWeather = (fetchedWeather) => {
   let result = [];

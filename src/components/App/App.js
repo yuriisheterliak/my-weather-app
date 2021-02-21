@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import { formatWeather } from './other/weatherFormatter';
-import Header from './components/Header/Header';
-import Week from './components/Week/Week';
-import Hours from './components/Hours/Hours';
-import GraphContainer from './components/GraphContainer/GraphContainer';
+import { formatWeather } from './weatherFormatter';
+import Header from '../Header/Header';
+import Week from '../Week/Week';
+import Hours from '../Hours/Hours';
+import GraphContainer from '../GraphContainer/GraphContainer';
 import classes from './App.module.scss';
 
 class App extends Component {
