@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { ReactComponent as ThunderIcon } from '../../../assets/images/rain-thunder.svg';
 import { ReactComponent as CloudsIcon } from '../../../assets/images/cloud.svg';
@@ -9,7 +9,7 @@ import { ReactComponent as RainIcon } from '../../../assets/images/rain.svg';
 import { ReactComponent as SnowIcon } from '../../../assets/images/snow.svg';
 import { ReactComponent as SunIcon } from '../../../assets/images/sun.svg';
 
-const WeatherIcon = (props) => {
+const WeatherIcon = memo((props) => {
   let id = props.weatherID;
   let iconComponent = <LightRainIcon className={props.className} />;
 
@@ -34,6 +34,6 @@ const WeatherIcon = (props) => {
     iconComponent = <CloudsIcon className={props.className} />;
 
   return iconComponent;
-};
+});
 
 export default WeatherIcon;

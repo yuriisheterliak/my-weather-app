@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import withFocusShadow from '../../../hoc/withFocusShadow';
 
-const Button = (props) => {
+const Button = memo((props) => {
   const { extraClass, ...restProps } = props;
 
   return (
@@ -10,6 +10,6 @@ const Button = (props) => {
       {props.children}
     </button>
   );
-};
+});
 
 export default withFocusShadow(Button);

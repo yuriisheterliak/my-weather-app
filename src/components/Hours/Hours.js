@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
@@ -14,7 +14,7 @@ import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
 import Spinner from '../common/Spinner/Spinner';
 
-class Hours extends Component {
+class Hours extends PureComponent {
   state = {
     timeFormat: 'h23',
   };
@@ -22,6 +22,27 @@ class Hours extends Component {
   changeTimeFormat = (timeFormat) => {
     this.setState({ timeFormat: timeFormat });
   };
+
+  tabs = [
+    <Tab
+      onClick={this.changeTimeFormat}
+      handlerParams="h23"
+      active={this.state.timeFormat === 'h23'}
+      title="24-hour format"
+      key="h23"
+    >
+      24-h
+    </Tab>,
+    <Tab
+      onClick={this.changeTimeFormat}
+      handlerParams="h12"
+      active={this.state.timeFormat === 'h12'}
+      title="12-hour format"
+      key="h12"
+    >
+      12-h
+    </Tab>,
+  ];
 
   render() {
     let hoursData, timezone;
@@ -64,24 +85,7 @@ class Hours extends Component {
 
     return (
       <div className={classes.Hours}>
-        <BlockHeader>
-          <Tab
-            onClick={this.changeTimeFormat}
-            handlerParams={['h23']}
-            active={this.state.timeFormat === 'h23'}
-            title="24-hour format"
-          >
-            24-h
-          </Tab>
-          <Tab
-            onClick={this.changeTimeFormat}
-            handlerParams={['h12']}
-            active={this.state.timeFormat === 'h12'}
-            title="12-hour format"
-          >
-            12-h
-          </Tab>
-        </BlockHeader>
+        <BlockHeader>{this.tabs}</BlockHeader>
         <SimpleBar className={classes.List} timeout="200">
           <ul>{hours}</ul>
         </SimpleBar>

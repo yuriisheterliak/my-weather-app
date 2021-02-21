@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import classes from './Hour.module.scss';
 import WeatherIcon from '../../common/WeatherIcon/WeatherIcon';
 
-const Hour = (props) => {
+const Hour = memo((props) => {
   let hourClasses = [classes.Hour];
   let activeLabel = null;
 
@@ -23,6 +23,6 @@ const Hour = (props) => {
       <span>{props.temp}°</span>
     </li>
   );
-};
+});
 
 export default Hour;

@@ -59,7 +59,7 @@ class GraphContainer extends PureComponent {
           {tabsData.map((tabData, index) => (
             <Tab
               onClick={this.changeTab}
-              handlerParams={[tabData.name]}
+              handlerParams={tabData.name}
               active={this.state.activeTab === tabData.name}
               title={tabData.description}
               key={index}
