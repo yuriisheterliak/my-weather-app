@@ -22,8 +22,6 @@ const tabsData = [
 const Hours = memo((props) => {
   const [timeFormat, setTimeFormat] = useState('h23');
 
-  const changeTimeFormat = (timeFormat) => setTimeFormat(timeFormat);
-
   let hoursData, timezone;
   if (props.weather) {
     hoursData = props.weather[props.activeDay].hourlyWeather;
@@ -66,7 +64,7 @@ const Hours = memo((props) => {
     () =>
       tabsData.map((tabData, index) => (
         <Tab
-          onClick={changeTimeFormat}
+          onClick={setTimeFormat}
           handlerParams={tabData.params}
           active={timeFormat === tabData.params}
           title={tabData.description}
