@@ -11,12 +11,11 @@ import Spinner from '../common/Spinner/Spinner';
 const GraphContainer = memo((props) => {
   const [activeTab, setActiveTab] = useState('Prec&Hum');
 
-  let graph, hoursData, timezone, graphData, commonData;
+  let hoursData, timezone, graphData, commonData;
 
   if (props.weather) {
     hoursData = props.weather[props.activeDay].hourlyWeather;
     timezone = props.weather[props.activeDay].timezone;
-
     graphData = hoursData.map((hour) => {
       return {
         name: getFormattedTime(hour.dt, 'h23', timezone),
@@ -36,10 +35,10 @@ const GraphContainer = memo((props) => {
     commonData = windSpeedData;
   }
 
+  let graph = <div className={classes.NoInfo}>No information</div>;
   if (graphData && graphData.length) {
     graph = <Graph graphData={graphData} commonData={commonData} />;
-  } else graph = <div className={classes.NoInfo}>No information</div>;
-
+  }
   if (props.isLoading) {
     graph = (
       <div className={classes.Error}>
@@ -48,21 +47,21 @@ const GraphContainer = memo((props) => {
     );
   }
 
+  const tabs = tabsData.map((tabData, index) => (
+    <Tab
+      onClick={setActiveTab}
+      handlerParams={tabData.name}
+      active={activeTab === tabData.name}
+      title={tabData.description}
+      key={index}
+    >
+      {tabData.name}
+    </Tab>
+  ));
+
   return (
     <div className={classes.GraphContainer}>
-      <BlockHeader>
-        {tabsData.map((tabData, index) => (
-          <Tab
-            onClick={setActiveTab}
-            handlerParams={tabData.name}
-            active={activeTab === tabData.name}
-            title={tabData.description}
-            key={index}
-          >
-            {tabData.name}
-          </Tab>
-        ))}
-      </BlockHeader>
+      <BlockHeader>{tabs}</BlockHeader>
       {graph}
     </div>
   );
