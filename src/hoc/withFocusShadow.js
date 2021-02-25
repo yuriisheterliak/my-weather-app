@@ -6,15 +6,18 @@ const withFocusShadow = (WrappedComponent) => (props) => {
   const [enableShadow, setEnableShadow] = useState(false);
 
   useEffect(() => {
+    const handleKeydown = (e) => {
+      if (e.keyCode === 9) setEnableShadow(true);
+    };
+    const handleMouseDown = () => setEnableShadow(false);
+
     window.addEventListener('keydown', handleKeydown);
     window.addEventListener('mousedown', handleMouseDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+      window.removeEventListener('mousedown', handleMouseDown);
+    };
   }, []);
-
-  const handleKeydown = (e) => {
-    if (e.keyCode === 9) setEnableShadow(true);
-  };
-
-  const handleMouseDown = () => setEnableShadow(false);
 
   return (
     <WrappedComponent
