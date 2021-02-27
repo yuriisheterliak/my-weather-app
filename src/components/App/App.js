@@ -41,8 +41,8 @@ const App = () => {
       const locationData = data.results[0];
       formattedLocationData = {
         location:
-          locationData.components.city ||
           locationData.components.town ||
+          locationData.components.city ||
           locationData.components.village ||
           locationData.components.state,
         country: locationData.components.country,
