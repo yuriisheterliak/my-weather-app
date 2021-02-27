@@ -7,65 +7,58 @@ import Hours from '../Hours/Hours';
 import GraphContainer from '../GraphContainer/GraphContainer';
 import classes from './App.module.scss';
 
+const defaultLocationInfo = {
+  location: null,
+  country: null,
+  lat: null,
+  lng: null,
+};
+
 const App = () => {
+  const [inputValue, setInputValue] = useState('Kyiv');
   const [units, setUnits] = useState('celsius');
   const [activeDay, setActiveDay] = useState(0);
   const [weatherIsLoading, setWeatherIsLoading] = useState(false);
   const [locationIsLoading, setLocationIsLoading] = useState(false);
   const [weather, setWeather] = useState(null);
-  const [locationInfo, setLocationInfo] = useState({
-    location: null,
-    country: null,
-    lat: null,
-    lng: null,
-  });
+  const [locationInfo, setLocationInfo] = useState(defaultLocationInfo);
   const [error, setError] = useState(null);
   const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
 
-  const getLocationInfo = useCallback(async (locationName) => {
-    const geocodingAPIKey = 'fc5537dfa58042ccb273b70a735c9fbe'; // TODO: hide this shame in server)
-    const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
-    let formattedLocationData = {
-      location: null,
-      country: null,
-      lat: null,
-      lng: null,
+  useEffect(() => {
+    const getLocationInfo = async (locationName) => {
+      const geocodingAPIKey = 'fc5537dfa58042ccb273b70a735c9fbe'; // TODO: hide this shame in server)
+      const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
+      let locationInfo = defaultLocationInfo;
+      let locationError = null;
+
+      try {
+        setLocationIsLoading(true);
+        setWeatherIsLoading(true);
+        const response = await fetch(geocodingURL);
+        const data = await response.json();
+        const locationData = data.results[0];
+        locationInfo = {
+          location:
+            locationData.components.town ||
+            locationData.components.city ||
+            locationData.components.village ||
+            locationData.components.state,
+          country: locationData.components.country,
+          lat: locationData.geometry.lat,
+          lng: locationData.geometry.lng,
+        };
+      } catch {
+        locationError = 'Geocoding API Error! Try again...';
+        setError(locationError);
+      } finally {
+        setLocationIsLoading(false);
+        setLocationInfo(locationInfo);
+        return { locationInfo, locationError };
+      }
     };
-    let locationError = null;
 
-    try {
-      setLocationIsLoading(true);
-      setWeatherIsLoading(true);
-      const response = await fetch(geocodingURL);
-      const data = await response.json();
-      const locationData = data.results[0];
-      formattedLocationData = {
-        location:
-          locationData.components.town ||
-          locationData.components.city ||
-          locationData.components.village ||
-          locationData.components.state,
-        country: locationData.components.country,
-        lat: locationData.geometry.lat,
-        lng: locationData.geometry.lng,
-      };
-      setLocationIsLoading(false);
-      setLocationInfo(formattedLocationData);
-    } catch {
-      locationError = 'Geocoding API Error! Try again...';
-      setLocationIsLoading(false);
-      setLocationInfo(formattedLocationData);
-      setError(locationError);
-    }
-
-    return {
-      locationInfo: formattedLocationData,
-      locationError: locationError,
-    };
-  }, []);
-
-  const getWeather = useCallback(
-    async (locationName) => {
+    const getWeather = async (locationName) => {
       setError(null);
       const { locationInfo, locationError } = await getLocationInfo(
         locationName
@@ -81,30 +74,25 @@ const App = () => {
         const response = await fetch(weatherURL);
         const data = await response.json();
         const weather = formatWeather(data);
-
-        setWeatherIsLoading(false);
         setWeather(weather);
       } catch {
-        setWeatherIsLoading(false);
         setWeather(null);
         setError('Weather API Error! Try again...');
+      } finally {
+        setWeatherIsLoading(false);
       }
-    },
-    [getLocationInfo]
-  );
+    };
 
-  useEffect(() => {
-    getWeather('Kyiv');
-  }, [getWeather]);
+    getWeather(inputValue);
+  }, [inputValue]);
 
   const handleLocationSubmit = useCallback(
-    async (value, e) => {
+    (value, e) => {
       e.preventDefault();
-      e.persist();
-      await getWeather(value);
+      setInputValue(value);
       if (error === null) e.target.reset();
     },
-    [getWeather, error]
+    [error]
   );
 
   const handleTempSwitching = useCallback((e) => {
