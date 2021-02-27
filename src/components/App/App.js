@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { formatWeather } from './weatherFormatter';
 import Header from '../Header/Header';
@@ -7,161 +7,161 @@ import Hours from '../Hours/Hours';
 import GraphContainer from '../GraphContainer/GraphContainer';
 import classes from './App.module.scss';
 
-class App extends Component {
-  state = {
-    units: 'celsius',
-    weather: null,
-    activeDay: 0,
-    weatherIsLoading: false,
-    locationIsLoading: false,
-    error: null,
-    locationInfo: {
+const App = () => {
+  const [units, setUnits] = useState('celsius');
+  const [activeDay, setActiveDay] = useState(0);
+  const [weatherIsLoading, setWeatherIsLoading] = useState(false);
+  const [locationIsLoading, setLocationIsLoading] = useState(false);
+  const [weather, setWeather] = useState(null);
+  const [locationInfo, setLocationInfo] = useState({
+    location: null,
+    country: null,
+    lat: null,
+    lng: null,
+  });
+  const [error, setError] = useState(null);
+  const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
+
+  const getLocationInfo = useCallback(async (locationName) => {
+    const geocodingAPIKey = 'fc5537dfa58042ccb273b70a735c9fbe'; // TODO: hide this shame in server)
+    const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
+    let formattedLocationData = {
       location: null,
       country: null,
       lat: null,
       lng: null,
-    },
-    sliderMouseDownClientX: null,
-  };
-
-  componentDidMount() {
-    this.getWeather('Kyiv');
-  }
-
-  getLocationInfo = async (locationName) => {
-    const geocodingAPIKey = 'fc5537dfa58042ccb273b70a735c9fbe';
-    const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
+    };
+    let locationError = null;
 
     try {
-      this.setState({ locationIsLoading: true, weatherIsLoading: true });
+      setLocationIsLoading(true);
+      setWeatherIsLoading(true);
       const response = await fetch(geocodingURL);
       const data = await response.json();
       const locationData = data.results[0];
-
-      this.setState({
-        error: null,
-        locationIsLoading: false,
-        locationInfo: {
-          location:
-            locationData.components.city ||
-            locationData.components.town ||
-            locationData.components.village ||
-            locationData.components.state,
-          country: locationData.components.country,
-          lat: locationData.geometry.lat,
-          lng: locationData.geometry.lng,
-        },
-      });
+      formattedLocationData = {
+        location:
+          locationData.components.city ||
+          locationData.components.town ||
+          locationData.components.village ||
+          locationData.components.state,
+        country: locationData.components.country,
+        lat: locationData.geometry.lat,
+        lng: locationData.geometry.lng,
+      };
+      setLocationIsLoading(false);
+      setLocationInfo(formattedLocationData);
     } catch {
-      this.setState({
-        error: 'Geocoding API Error! Try again...',
-        locationIsLoading: false,
-        locationInfo: {
-          location: null,
-          country: null,
-          lat: null,
-          lng: null,
-        },
-      });
+      locationError = 'Geocoding API Error! Try again...';
+      setLocationIsLoading(false);
+      setLocationInfo(formattedLocationData);
+      setError(locationError);
+    }
+
+    return {
+      locationInfo: formattedLocationData,
+      locationError: locationError,
+    };
+  }, []);
+
+  const getWeather = useCallback(
+    async (locationName) => {
+      setError(null);
+      const { locationInfo, locationError } = await getLocationInfo(
+        locationName
+      );
+      if (locationError) return;
+
+      const baseWeatherURL = 'https://api.openweathermap.org/data/2.5/onecall?';
+      const weatherAPIKey = 'f7598b88f802f301ba64fa1641332295'; // TODO: hide this shame in server)
+      const parameters = `lat=${locationInfo.lat}&lon=${locationInfo.lng}&exclude=current,minutely&units=metric&appid=${weatherAPIKey}`;
+      const weatherURL = `${baseWeatherURL}${parameters}`;
+
+      try {
+        const response = await fetch(weatherURL);
+        const data = await response.json();
+        const weather = formatWeather(data);
+
+        setWeatherIsLoading(false);
+        setWeather(weather);
+      } catch {
+        setWeatherIsLoading(false);
+        setWeather(null);
+        setError('Weather API Error! Try again...');
+      }
+    },
+    [getLocationInfo]
+  );
+
+  useEffect(() => {
+    getWeather('Kyiv');
+  }, [getWeather]);
+
+  const handleLocationSubmit = useCallback(
+    async (value, e) => {
+      e.preventDefault();
+      e.persist();
+      await getWeather(value);
+      if (error === null) e.target.reset();
+    },
+    [getWeather, error]
+  );
+
+  const handleTempSwitching = useCallback((e) => {
+    e.target.checked ? setUnits('fahrenheit') : setUnits('celsius');
+  }, []);
+
+  const changeActiveDay = (dayIndex, e) => {
+    if (sliderMouseDownClientX === e.clientX) {
+      setActiveDay(dayIndex);
     }
   };
 
-  getWeather = async (locationName) => {
-    await this.getLocationInfo(locationName);
-    if (this.state.error) return;
-
-    const baseWeatherURL = 'https://api.openweathermap.org/data/2.5/onecall?';
-    const weatherAPIKey = 'f7598b88f802f301ba64fa1641332295'; // :)
-    const parameters = `lat=${this.state.locationInfo.lat}&lon=${this.state.locationInfo.lng}&exclude=current,minutely&units=metric&appid=${weatherAPIKey}`;
-    const weatherURL = `${baseWeatherURL}${parameters}`;
-
-    try {
-      const response = await fetch(weatherURL);
-      const data = await response.json();
-      const weather = formatWeather(data);
-
-      this.setState({
-        error: null,
-        weatherIsLoading: false,
-        weather: weather,
-      });
-    } catch (err) {
-      this.setState({
-        error: 'Weather API Error! Try again...',
-        weatherIsLoading: false,
-        weather: null,
-      });
-    }
+  const saveSliderMouseDownClientX = (e) => {
+    setSliderMouseDownClientX(e.clientX);
   };
 
-  handleLocationSubmit = async (value, e) => {
-    e.preventDefault();
-    e.persist();
-    await this.getWeather(value);
-    if (this.state.error === null) e.target.reset();
-  };
+  let mainContent = (
+    <>
+      <Week
+        weather={weather}
+        activeDay={activeDay}
+        units={units}
+        isLoading={weatherIsLoading}
+        changeActiveDay={changeActiveDay}
+        saveSliderMouseDownClientX={saveSliderMouseDownClientX}
+      />
+      <Hours
+        weather={weather}
+        activeDay={activeDay}
+        units={units}
+        isLoading={weatherIsLoading}
+      />
+      <GraphContainer
+        weather={weather}
+        activeDay={activeDay}
+        isLoading={weatherIsLoading}
+      />
+    </>
+  );
 
-  changeActiveDay = (dayIndex, e) => {
-    if (this.state.sliderMouseDownClientX === e.clientX) {
-      this.setState({ activeDay: dayIndex });
-    }
-  };
-
-  saveSliderMouseDownClientX = (e) => {
-    this.setState({ sliderMouseDownClientX: e.clientX });
-  };
-
-  handleTempSwitching = (e) => {
-    if (e.target.checked) {
-      this.setState({ units: 'fahrenheit' });
-    } else {
-      this.setState({ units: 'celsius' });
-    }
-  };
-
-  render() {
-    let mainContent = (
-      <>
-        <Week
-          weather={this.state.weather}
-          activeDay={this.state.activeDay}
-          units={this.state.units}
-          isLoading={this.state.weatherIsLoading}
-          changeActiveDay={this.changeActiveDay}
-          saveSliderMouseDownClientX={this.saveSliderMouseDownClientX}
-        />
-        <Hours
-          weather={this.state.weather}
-          activeDay={this.state.activeDay}
-          units={this.state.units}
-          isLoading={this.state.weatherIsLoading}
-        />
-        <GraphContainer
-          weather={this.state.weather}
-          activeDay={this.state.activeDay}
-          isLoading={this.state.weatherIsLoading}
-        />
-      </>
-    );
-
-    if (this.state.error) {
-      mainContent = <div className={classes.Error}>Something went wrong!</div>;
-    }
-
-    return (
-      <div className={classes.App}>
-        <Header
-          handleLocationSubmit={this.handleLocationSubmit}
-          handleTempSwitching={this.handleTempSwitching}
-          location={this.state.locationInfo.location}
-          country={this.state.locationInfo.country}
-          isLoading={this.state.locationIsLoading}
-          error={this.state.error}
-        />
-        {mainContent}
-      </div>
-    );
+  if (error) {
+    mainContent = <div className={classes.Error}>Something went wrong!</div>;
   }
-}
+
+  return (
+    <div className={classes.App}>
+      <Header
+        handleLocationSubmit={handleLocationSubmit}
+        handleTempSwitching={handleTempSwitching}
+        location={locationInfo.location}
+        country={locationInfo.country}
+        isLoading={locationIsLoading}
+        error={error}
+      />
+      {mainContent}
+    </div>
+  );
+};
 
 export default App;
