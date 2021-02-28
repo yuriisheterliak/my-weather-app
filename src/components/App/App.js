@@ -15,7 +15,7 @@ const defaultLocationInfo = {
 };
 
 const App = () => {
-  const [inputValue, setInputValue] = useState('Kyiv');
+  const [inputValue, setInputValue] = useState({ value: 'Kyiv' });
   const [units, setUnits] = useState('celsius');
   const [activeDay, setActiveDay] = useState(0);
   const [weatherIsLoading, setWeatherIsLoading] = useState(false);
@@ -86,12 +86,12 @@ const App = () => {
       }
     };
 
-    getWeather(inputValue);
+    getWeather(inputValue.value);
   }, [inputValue]);
 
   const handleLocationSubmit = useCallback((value, e) => {
     e.preventDefault();
-    setInputValue(value);
+    setInputValue({ value });
   }, []);
 
   const handleTempSwitching = useCallback((e) => {
