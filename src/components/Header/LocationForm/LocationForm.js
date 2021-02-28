@@ -14,6 +14,7 @@ const LocationForm = memo((props) => {
 
   return (
     <form
+      ref={props.formRef}
       className={formClasses.join(' ')}
       onSubmit={(e) => props.onSubmit(value, e)}
     >

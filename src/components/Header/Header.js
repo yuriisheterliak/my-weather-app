@@ -13,7 +13,11 @@ const Header = memo((props) => (
       isLoading={props.isLoading}
     />
     <TempSwitcher onChange={props.handleTempSwitching} />
-    <LocationForm onSubmit={props.handleLocationSubmit} error={props.error} />
+    <LocationForm
+      formRef={props.formRef}
+      onSubmit={props.handleLocationSubmit}
+      error={props.error}
+    />
   </div>
 ));
 

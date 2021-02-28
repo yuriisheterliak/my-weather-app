@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import { formatWeather } from './weatherFormatter';
 import Header from '../Header/Header';
@@ -24,6 +24,8 @@ const App = () => {
   const [locationInfo, setLocationInfo] = useState(defaultLocationInfo);
   const [error, setError] = useState(null);
   const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
+
+  const formRef = useRef();
 
   useEffect(() => {
     const getLocationInfo = async (locationName) => {
@@ -59,7 +61,6 @@ const App = () => {
     };
 
     const getWeather = async (locationName) => {
-      setError(null);
       const { locationInfo, locationError } = await getLocationInfo(
         locationName
       );
@@ -75,6 +76,8 @@ const App = () => {
         const data = await response.json();
         const weather = formatWeather(data);
         setWeather(weather);
+        setError(null);
+        formRef.current.reset();
       } catch {
         setWeather(null);
         setError('Weather API Error! Try again...');
@@ -86,14 +89,10 @@ const App = () => {
     getWeather(inputValue);
   }, [inputValue]);
 
-  const handleLocationSubmit = useCallback(
-    (value, e) => {
-      e.preventDefault();
-      setInputValue(value);
-      if (error === null) e.target.reset();
-    },
-    [error]
-  );
+  const handleLocationSubmit = useCallback((value, e) => {
+    e.preventDefault();
+    setInputValue(value);
+  }, []);
 
   const handleTempSwitching = useCallback((e) => {
     e.target.checked ? setUnits('fahrenheit') : setUnits('celsius');
@@ -142,6 +141,7 @@ const App = () => {
       <Header
         handleLocationSubmit={handleLocationSubmit}
         handleTempSwitching={handleTempSwitching}
+        formRef={formRef}
         location={locationInfo.location}
         country={locationInfo.country}
         isLoading={locationIsLoading}
