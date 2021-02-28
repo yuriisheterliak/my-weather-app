@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 
 import classes from './Tab.module.scss';
-import withFocusShadow from '../../../hoc/withFocusShadow';
+import useShadowOnFocus from '../../../hooks/useShadowOnFocus';
 
 const Tab = memo((props) => {
-  let tabClasses = [classes.Tab, props.extraClass];
+  const extraClass = useShadowOnFocus();
+  let tabClasses = [classes.Tab, extraClass];
   if (props.active) tabClasses.push(classes.Active);
 
   return (
@@ -18,4 +19,4 @@ const Tab = memo((props) => {
   );
 });
 
-export default withFocusShadow(Tab);
+export default Tab;

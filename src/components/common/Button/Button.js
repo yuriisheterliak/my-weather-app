@@ -1,15 +1,11 @@
 import React, { memo } from 'react';
 
-import withFocusShadow from '../../../hoc/withFocusShadow';
+import useShadowOnFocus from '../../../hooks/useShadowOnFocus';
 
 const Button = memo((props) => {
-  const { extraClass, ...restProps } = props;
+  const extraClass = useShadowOnFocus();
 
-  return (
-    <button className={extraClass} {...restProps}>
-      {props.children}
-    </button>
-  );
+  return <button className={extraClass}>{props.children}</button>;
 });
 
-export default withFocusShadow(Button);
+export default Button;
