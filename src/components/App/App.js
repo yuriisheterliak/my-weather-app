@@ -98,15 +98,18 @@ const App = () => {
     e.target.checked ? setUnits('fahrenheit') : setUnits('celsius');
   }, []);
 
-  const changeActiveDay = (dayIndex, e) => {
-    if (sliderMouseDownClientX === e.clientX) {
-      setActiveDay(dayIndex);
-    }
-  };
+  const changeActiveDay = useCallback(
+    (dayIndex, e) => {
+      if (sliderMouseDownClientX === e.clientX) {
+        setActiveDay(dayIndex);
+      }
+    },
+    [sliderMouseDownClientX]
+  );
 
-  const saveSliderMouseDownClientX = (e) => {
+  const saveSliderMouseDownClientX = useCallback((e) => {
     setSliderMouseDownClientX(e.clientX);
-  };
+  }, []);
 
   let mainContent = (
     <>
