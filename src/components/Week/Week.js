@@ -32,7 +32,7 @@ const Week = memo((props) => {
         weather={props.weather}
         activeDay={props.activeDay}
         units={props.units}
-        isLoading={props.weatherIsLoading}
+        isLoading={props.isLoading}
         changeActiveDay={props.changeActiveDay}
         saveSliderMouseDownClientX={props.saveSliderMouseDownClientX}
       />
