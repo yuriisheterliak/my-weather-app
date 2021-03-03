@@ -28,7 +28,7 @@ const LocationForm = memo((props) => {
         placeholder="Your Location..."
         onChange={(e) => setValue(e.target.value)}
       />
-      <Button type="submit" aria-label="Search" title="Search">
+      <Button type="submit" ariaLabel="Search" title="Search">
         <SearchIcon className={classes.Icon} />
       </Button>
       {props.error !== null ? (
