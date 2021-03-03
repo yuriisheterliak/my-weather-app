@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import axios from 'axios';
 
 import { formatWeather } from './weatherFormatter';
 import Header from '../Header/Header';
@@ -29,16 +30,15 @@ const App = () => {
 
   useEffect(() => {
     const getLocationInfo = async (locationName) => {
-      const geocodingAPIKey = 'fc5537dfa58042ccb273b70a735c9fbe'; // TODO: hide this shame in server)
-      const geocodingURL = `https://api.opencagedata.com/geocode/v1/json?q=${locationName}&limit=1&key=${geocodingAPIKey}`;
       let locationInfo = defaultLocationInfo;
       let locationError = null;
 
       try {
         setLocationIsLoading(true);
         setWeatherIsLoading(true);
-        const response = await fetch(geocodingURL);
-        const data = await response.json();
+        const { data } = await axios.get(
+          `/.netlify/functions/fetch-location/?locationName=${locationName}`
+        );
         const locationData = data.results[0];
         locationInfo = {
           location:
@@ -66,14 +66,10 @@ const App = () => {
       );
       if (locationError) return;
 
-      const baseWeatherURL = 'https://api.openweathermap.org/data/2.5/onecall?';
-      const weatherAPIKey = 'f7598b88f802f301ba64fa1641332295'; // TODO: hide this shame in server)
-      const parameters = `lat=${locationInfo.lat}&lon=${locationInfo.lng}&exclude=current,minutely&units=metric&appid=${weatherAPIKey}`;
-      const weatherURL = `${baseWeatherURL}${parameters}`;
-
       try {
-        const response = await fetch(weatherURL);
-        const data = await response.json();
+        const { data } = await axios.get(
+          `/.netlify/functions/fetch-weather/?lat=${locationInfo.lat}&lng=${locationInfo.lng}`
+        );
         const weather = formatWeather(data);
         setWeather(weather);
         setError(null);

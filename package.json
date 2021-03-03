@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.0",
+    "axios": "^0.21.1",
     "keen-slider": "^5.4.0",
     "node-sass": "^5.0.0",
     "progress-bar-webpack-plugin": "^2.1.0",
@@ -16,7 +17,12 @@
     "simplebar-react": "^2.3.0",
     "webpack-bundle-analyzer": "^4.4.0"
   },
+  "devDependencies": {
+    "netlify-cli": "^3.10.3"
+  },
   "scripts": {
+    "netlify dev": "netlify dev",
+    "netlify deploy": "netlify deploy -p",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "analyze": "node scripts/analyze.js",
