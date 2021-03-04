@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
 import { formatWeather } from './weatherFormatter';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import Header from '../Header/Header';
 import Week from '../Week/Week';
 import Hours from '../Hours/Hours';
@@ -16,7 +17,9 @@ const defaultLocationInfo = {
 };
 
 const App = () => {
-  const [inputValue, setInputValue] = useState({ value: 'Kyiv' });
+  const [inputValue, setInputValue] = useLocalStorage('location', {
+    value: 'Kyiv',
+  });
   const [units, setUnits] = useState('celsius');
   const [activeDay, setActiveDay] = useState(0);
   const [weatherIsLoading, setWeatherIsLoading] = useState(false);
@@ -85,10 +88,13 @@ const App = () => {
     getWeather(inputValue.value);
   }, [inputValue]);
 
-  const handleLocationSubmit = useCallback((value, e) => {
-    e.preventDefault();
-    setInputValue({ value });
-  }, []);
+  const handleLocationSubmit = useCallback(
+    (value, e) => {
+      e.preventDefault();
+      setInputValue({ value });
+    },
+    [setInputValue]
+  );
 
   const handleTempSwitching = useCallback((e) => {
     e.target.checked ? setUnits('fahrenheit') : setUnits('celsius');
