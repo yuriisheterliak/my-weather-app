@@ -22,8 +22,8 @@ const App = () => {
   });
   const [units, setUnits] = useState('celsius');
   const [activeDay, setActiveDay] = useState(0);
-  const [weatherIsLoading, setWeatherIsLoading] = useState(false);
-  const [locationIsLoading, setLocationIsLoading] = useState(false);
+  const [weatherIsLoading, setWeatherIsLoading] = useState(true);
+  const [locationIsLoading, setLocationIsLoading] = useState(true);
   const [weather, setWeather] = useState(null);
   const [locationInfo, setLocationInfo] = useState(defaultLocationInfo);
   const [error, setError] = useState(null);
