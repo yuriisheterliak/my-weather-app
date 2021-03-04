@@ -9,6 +9,7 @@ import Hours from '../Hours/Hours';
 import GraphContainer from '../GraphContainer/GraphContainer';
 import classes from './App.module.scss';
 
+const defaultLocationName = { value: 'Kyiv' };
 const defaultLocationInfo = {
   location: null,
   country: null,
@@ -17,18 +18,21 @@ const defaultLocationInfo = {
 };
 
 const App = () => {
-  const [inputValue, setInputValue] = useLocalStorage('location', {
-    value: 'Kyiv',
-  });
+  const [error, setError] = useState(null);
+  const prevInputValue = useRef(defaultLocationName);
+  const [inputValue, setInputValue] = useLocalStorage(
+    'location',
+    defaultLocationName,
+    prevInputValue.current,
+    error
+  );
   const [units, setUnits] = useState('celsius');
   const [activeDay, setActiveDay] = useState(0);
   const [weatherIsLoading, setWeatherIsLoading] = useState(true);
   const [locationIsLoading, setLocationIsLoading] = useState(true);
   const [weather, setWeather] = useState(null);
   const [locationInfo, setLocationInfo] = useState(defaultLocationInfo);
-  const [error, setError] = useState(null);
   const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
-
   const formRef = useRef();
 
   useEffect(() => {
@@ -91,9 +95,12 @@ const App = () => {
   const handleLocationSubmit = useCallback(
     (value, e) => {
       e.preventDefault();
-      setInputValue({ value });
+      setInputValue((prevValue) => {
+        if (!error) prevInputValue.current = prevValue;
+        return { value };
+      });
     },
-    [setInputValue]
+    [setInputValue, error]
   );
 
   const handleTempSwitching = useCallback((e) => {
