@@ -19,11 +19,12 @@ const defaultLocationInfo = {
 
 const App = () => {
   const [error, setError] = useState(null);
-  const prevInputValue = useRef(defaultLocationName);
-  const [inputValue, setInputValue] = useLocalStorage(
+  const [inputValue, setInputValue] = useState('');
+  const prevLocationName = useRef(defaultLocationName);
+  const [locationName, setLocationName] = useLocalStorage(
     'location',
     defaultLocationName,
-    prevInputValue.current,
+    prevLocationName.current,
     error
   );
   const [units, setUnits] = useState('celsius');
@@ -33,7 +34,6 @@ const App = () => {
   const [weather, setWeather] = useState(null);
   const [locationInfo, setLocationInfo] = useState(defaultLocationInfo);
   const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
-  const formRef = useRef();
 
   useEffect(() => {
     const getLocationInfo = async (locationName) => {
@@ -46,16 +46,16 @@ const App = () => {
         const { data } = await axios.get(
           `/.netlify/functions/fetch-location/?locationName=${locationName}`
         );
-        const locationData = data.results[0];
+        const locationData = data.features[0].properties;
         locationInfo = {
           location:
-            locationData.components.town ||
-            locationData.components.city ||
-            locationData.components.village ||
-            locationData.components.state,
-          country: locationData.components.country,
-          lat: locationData.geometry.lat,
-          lng: locationData.geometry.lng,
+            locationData.town ||
+            locationData.city ||
+            locationData.village ||
+            locationData.state,
+          country: locationData.country,
+          lat: locationData.lat,
+          lng: locationData.lon,
         };
       } catch {
         locationError = 'Geocoding API Error! Try again...';
@@ -80,7 +80,7 @@ const App = () => {
         const weather = formatWeather(data);
         setWeather(weather);
         setError(null);
-        formRef.current.reset();
+        setInputValue('');
       } catch {
         setWeather(null);
         setError('Weather API Error! Try again...');
@@ -89,18 +89,20 @@ const App = () => {
       }
     };
 
-    getWeather(inputValue.value);
-  }, [inputValue]);
+    getWeather(locationName.value);
+  }, [locationName]);
 
   const handleLocationSubmit = useCallback(
     (value, e) => {
       e.preventDefault();
-      setInputValue((prevValue) => {
-        if (!error) prevInputValue.current = prevValue;
+      if (!value || !value.trim()) return;
+
+      setLocationName((prevValue) => {
+        if (!error) prevLocationName.current = prevValue;
         return { value };
       });
     },
-    [setInputValue, error]
+    [setLocationName, error]
   );
 
   const handleTempSwitching = useCallback((e) => {
@@ -151,9 +153,10 @@ const App = () => {
   return (
     <div className={classes.App}>
       <Header
+        inputValue={inputValue}
+        setInputValue={setInputValue}
         handleLocationSubmit={handleLocationSubmit}
         handleTempSwitching={handleTempSwitching}
-        formRef={formRef}
         location={locationInfo.location}
         country={locationInfo.country}
         isLoading={locationIsLoading}

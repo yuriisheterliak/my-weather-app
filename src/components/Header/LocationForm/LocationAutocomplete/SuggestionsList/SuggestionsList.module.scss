@@ -1,0 +1,24 @@
+.List {
+  width: calc(100% + 1px);
+  font-size: 14px;
+  color: #f9fafb;
+  background-color: #10151e;
+  box-shadow: 0 0 10px 1px #10151e;
+  
+  position: absolute;
+  top: 36px;
+}
+
+.ListItem {
+  padding: 10px;
+  border-bottom: 1px solid #243042;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1a2133;
+  }
+}
+
+.Active {
+  background-color: #1a2133;
+}

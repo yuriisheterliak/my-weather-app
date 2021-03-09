@@ -1,0 +1,16 @@
+.Input {
+  width: 100%;
+  font-size: 14px;
+  color: #f9fafb;
+  background-color: #10151e;
+  padding-left: 9px;
+  padding-right: 73px;
+
+  &::placeholder {
+    color: #bdbdbd;
+  }
+
+  &:focus {
+    border: 1px solid #f9fafb;
+  }
+}

@@ -1,34 +1,67 @@
-import React, { useState, memo } from 'react';
+import React, { memo, useRef } from 'react';
 
 import classes from './LocationForm.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
+import { ReactComponent as ClearIcon } from '../../../assets/images/clear.svg';
+import LocationAutocomplete from './LocationAutocomplete/LocationAutocomplete';
 import Button from '../../common/Button/Button';
+import useClickOutside from '../../../hooks/useClickOutside';
+import useFetchSuggestions from '../../../hooks/useFetchSuggestions';
 
 const LocationForm = memo((props) => {
-  const [value, setValue] = useState('');
+  const {
+    suggestions,
+    clearSuggestions,
+    cancelSuggestionsFetching,
+  } = useFetchSuggestions(props.inputValue);
+  const formRef = useRef();
 
-  let formClasses = [classes.Form];
+  useClickOutside(formRef, clearSuggestions, suggestions.length);
+
+  const handleOnSubmit = (e) => {
+    cancelSuggestionsFetching();
+    clearSuggestions();
+    props.handleLocationSubmit(props.inputValue, e);
+  };
+
+  const handleInputReset = () => {
+    props.setInputValue('');
+    clearSuggestions();
+  };
+
+  const formClasses = [classes.Form];
   if (props.error !== null) {
     formClasses.push(classes.FormInvalid);
   }
 
   return (
     <form
-      ref={props.formRef}
+      ref={formRef}
       className={formClasses.join(' ')}
-      onSubmit={(e) => props.onSubmit(value, e)}
+      onSubmit={handleOnSubmit}
     >
-      <label htmlFor="searchInput" style={{ width: '0.1px', opacity: '0' }}>
-        Search
-      </label>
-      <input
-        id="searchInput"
-        className={classes.Input}
-        type="text"
-        placeholder="Your Location..."
-        onChange={(e) => setValue(e.target.value)}
+      <LocationAutocomplete
+        suggestions={suggestions}
+        clearSuggestions={clearSuggestions}
+        inputValue={props.inputValue}
+        setInputValue={props.setInputValue}
       />
-      <Button type="submit" ariaLabel="Search" title="Search">
+      {props.inputValue ? (
+        <Button
+          attachedClass={classes.ClearButton}
+          ariaLabel="Clear"
+          title="Clear"
+          onClick={handleInputReset}
+        >
+          <ClearIcon className={classes.Icon} />
+        </Button>
+      ) : null}
+      <Button
+        type="submit"
+        attachedClass={classes.SearchButton}
+        ariaLabel="Search"
+        title="Search"
+      >
         <SearchIcon className={classes.Icon} />
       </Button>
       {props.error !== null ? (

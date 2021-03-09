@@ -14,8 +14,9 @@ const Header = memo((props) => (
     />
     <TempSwitcher onChange={props.handleTempSwitching} />
     <LocationForm
-      formRef={props.formRef}
-      onSubmit={props.handleLocationSubmit}
+      inputValue={props.inputValue}
+      setInputValue={props.setInputValue}
+      handleLocationSubmit={props.handleLocationSubmit}
       error={props.error}
     />
   </div>

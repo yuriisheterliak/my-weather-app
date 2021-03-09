@@ -20,7 +20,7 @@
     fill: #f9fafb;
   }
 
-  // Background, which hide sibling's borders
+  /* Background, which hides sibling's borders */
   &::after {
     content: '';
     width: 100%;
