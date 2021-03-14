@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 import axios from 'axios';
 
 const useFetchSuggestions = (locationName) => {
@@ -16,8 +16,8 @@ const useFetchSuggestions = (locationName) => {
     setSuggestions(data.features);
   }, []);
 
-  const throttledFetchSuggestions = useMemo(
-    () => throttle((locationName) => fetchSuggestions(locationName), 300),
+  const debouncedFetchSuggestions = useMemo(
+    () => debounce((locationName) => fetchSuggestions(locationName), 200),
     [fetchSuggestions]
   );
 
@@ -26,8 +26,8 @@ const useFetchSuggestions = (locationName) => {
 
   useEffect(() => {
     fetchingIsCancelled.current = false;
-    throttledFetchSuggestions(locationName);
-  }, [throttledFetchSuggestions, locationName]);
+    debouncedFetchSuggestions(locationName);
+  }, [debouncedFetchSuggestions, locationName]);
 
   return { suggestions, clearSuggestions, cancelSuggestionsFetching };
 };
