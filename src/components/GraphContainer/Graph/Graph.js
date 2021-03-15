@@ -19,7 +19,7 @@ const Graph = memo((props) => (
       margin={{
         top: 20,
         right: 25,
-        left: props.commonData[0].name === 'pressure' ? -10 : -20,
+        left: -20,
         bottom: 0,
       }}
     >
@@ -59,7 +59,11 @@ const Graph = memo((props) => (
       ))}
       <Legend
         content={<CustomLegend commonData={props.commonData} />}
-        wrapperStyle={{ bottom: 0, left: 15, paddingBottom: 10 }}
+        wrapperStyle={{
+          bottom: 0,
+          left: 15,
+          paddingBottom: props.commonData[0].name === 'precipitation' ? 10 : 37,
+        }}
       />
     </AreaChart>
   </ResponsiveContainer>
