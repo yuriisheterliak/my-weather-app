@@ -10,7 +10,7 @@ import { ReactComponent as SnowIcon } from '../../../assets/images/snow.svg';
 import { ReactComponent as SunIcon } from '../../../assets/images/sun.svg';
 
 const WeatherIcon = memo((props) => {
-  let id = props.weatherID;
+  const id = props.weatherID;
   let iconComponent = <LightRainIcon className={props.className} />;
 
   if (id >= 200 && id <= 232)

@@ -5,14 +5,14 @@ import Spinner from '../../../common/Spinner/Spinner';
 import WeatherIcon from '../../../common/WeatherIcon/WeatherIcon';
 
 const Day = memo((props) => {
-  let dayClasses = [classes.Day, 'keen-slider__slide'];
+  const dayClasses = [classes.Day, 'keen-slider__slide'];
   if (props.isActive) dayClasses.push(classes.Active);
 
   let dayComponent = (
     <div
       className={dayClasses.join(' ')}
       onClick={(e) => props.onClick(props.index, e)}
-      onMouseDown={(e) => props.onMouseDown(e)}
+      onMouseDown={props.onMouseDown}
     >
       {props.isToday === true ? (
         <span className={classes.TodayLabel}>Today</span>

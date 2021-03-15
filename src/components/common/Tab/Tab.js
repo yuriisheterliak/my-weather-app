@@ -5,7 +5,7 @@ import useShadowOnFocus from '../../../hooks/useShadowOnFocus';
 
 const Tab = memo((props) => {
   const extraClass = useShadowOnFocus();
-  let tabClasses = [classes.Tab, extraClass];
+  const tabClasses = [classes.Tab, extraClass];
   if (props.active) tabClasses.push(classes.Active);
 
   return (

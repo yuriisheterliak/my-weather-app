@@ -4,7 +4,7 @@ import { ReactComponent as SpinnerSvg } from '../../../assets/images/spinner.svg
 import classes from './Spinner.module.scss';
 
 const Spinner = (props) => {
-  let spinnerClasses = [classes.Spinner];
+  const spinnerClasses = [classes.Spinner];
   if (props.small) spinnerClasses.push(classes.Small);
   if (props.big) spinnerClasses.push(classes.Big);
 

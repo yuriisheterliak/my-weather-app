@@ -1,7 +1,7 @@
 import { getDayOfMonth } from '../../shared/utilities';
 
 export const formatWeather = (fetchedWeather) => {
-  let result = [];
+  const result = [];
 
   fetchedWeather.daily.forEach((day, index) => {
     if (index === 7) return;
@@ -31,7 +31,7 @@ export const getHourlyWeatherByDate = (
   dateTimestampSec,
   timezone
 ) => {
-  let result = [];
+  const result = [];
 
   allHourlyWeather.forEach((hour) => {
     if (
@@ -46,7 +46,7 @@ export const getHourlyWeatherByDate = (
 };
 
 export const formatHourlyWeather = (hourlyWeather) => {
-  let result = [];
+  const result = [];
 
   hourlyWeather.forEach((hour) => {
     result.push({

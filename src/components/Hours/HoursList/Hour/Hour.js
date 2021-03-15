@@ -4,7 +4,7 @@ import classes from './Hour.module.scss';
 import WeatherIcon from '../../../common/WeatherIcon/WeatherIcon';
 
 const Hour = memo((props) => {
-  let hourClasses = [classes.Hour];
+  const hourClasses = [classes.Hour];
   let activeLabel = null;
 
   if (props.active) {
