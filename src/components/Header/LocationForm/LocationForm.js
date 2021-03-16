@@ -6,7 +6,7 @@ import { ReactComponent as ClearIcon } from '../../../assets/images/clear.svg';
 import LocationAutocomplete from './LocationAutocomplete/LocationAutocomplete';
 import Button from '../../common/Button/Button';
 import useClickOutside from '../../../hooks/useClickOutside';
-import useFetchSuggestions from '../../../hooks/useFetchSuggestions';
+import useFetchSuggestions from './hooks/useFetchSuggestions';
 
 const LocationForm = memo((props) => {
   const {

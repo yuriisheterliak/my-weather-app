@@ -10,25 +10,21 @@ const TitleAndLocation = memo((props) => {
       ? `${props.location}, ${props.country}`
       : 'Location not found!';
 
-  let location = (
-    <div className={classes.LocationContainer}>
-      <LocationIcon className={classes.Icon} />
-      <span>{locationText}</span>
-    </div>
-  );
-
-  if (props.isLoading) {
-    location = (
-      <div className={classes.LocationContainer}>
-        <Spinner small />
-      </div>
-    );
-  }
-
   return (
     <div>
       <h1 className={classes.Title}>My Weather App</h1>
-      {location}
+      <div className={classes.LocationContainer}>
+        {props.isLoading ? (
+          <div className={classes.LocationContainer}>
+            <Spinner small />
+          </div>
+        ) : (
+          <>
+            <LocationIcon className={classes.Icon} />
+            <span>{locationText}</span>
+          </>
+        )}
+      </div>
     </div>
   );
 });

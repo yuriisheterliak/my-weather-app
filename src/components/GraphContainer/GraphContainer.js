@@ -14,8 +14,8 @@ const GraphContainer = memo((props) => {
   let hoursData, timezone, graphData, commonData;
 
   if (props.weather) {
-    hoursData = props.weather[props.activeDay].hourlyWeather;
-    timezone = props.weather[props.activeDay].timezone;
+    hoursData = props.weather.hourlyWeather;
+    timezone = props.weather.timezone;
     graphData = hoursData.map((hour) => {
       return {
         name: getFormattedTime(hour.dt, 'h23', timezone),
@@ -35,17 +35,17 @@ const GraphContainer = memo((props) => {
     commonData = windSpeedData;
   }
 
-  let graph = <div className={classes.NoInfo}>No information</div>;
-  if (graphData && graphData.length) {
-    graph = <Graph graphData={graphData} commonData={commonData} />;
-  }
+  let graph;
+
   if (props.isLoading) {
     graph = (
       <div className={classes.Error}>
         <Spinner big />
       </div>
     );
-  }
+  } else if (graphData && graphData.length) {
+    graph = <Graph graphData={graphData} commonData={commonData} />;
+  } else graph = <div className={classes.NoInfo}>No information</div>;
 
   const tabs = tabsData.map((tabData, index) => (
     <Tab

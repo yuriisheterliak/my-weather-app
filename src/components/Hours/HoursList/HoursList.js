@@ -11,14 +11,19 @@ import Hour from './Hour/Hour';
 import Spinner from '../../common/Spinner/Spinner';
 
 const HoursList = memo((props) => {
-  let hoursList = <li className={classes.NoInfo}>No information</li>;
-  let hoursData, timezone;
+  let hoursList, hoursData, timezone;
   if (props.weather) {
-    hoursData = props.weather[props.activeDay].hourlyWeather;
-    timezone = props.weather[props.activeDay].timezone;
+    hoursData = props.weather.hourlyWeather;
+    timezone = props.weather.timezone;
   }
 
-  if (hoursData && hoursData.length) {
+  if (props.isLoading) {
+    hoursList = (
+      <div className={classes.Error}>
+        <Spinner big />
+      </div>
+    );
+  } else if (hoursData && hoursData.length) {
     hoursList = hoursData.map((hour, index) => {
       const time = getFormattedTime(hour.dt, props.timeFormat, timezone);
       const desc = capitalizeFirstLetters(hour.desc);
@@ -38,15 +43,7 @@ const HoursList = memo((props) => {
         />
       );
     });
-  }
-
-  if (props.isLoading) {
-    hoursList = (
-      <div className={classes.Error}>
-        <Spinner big />
-      </div>
-    );
-  }
+  } else hoursList = <li className={classes.NoInfo}>No information</li>;
 
   return <ul>{hoursList}</ul>;
 });

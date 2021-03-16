@@ -33,8 +33,7 @@ const Week = memo((props) => {
         activeDay={props.activeDay}
         units={props.units}
         isLoading={props.isLoading}
-        changeActiveDay={props.changeActiveDay}
-        saveSliderMouseDownClientX={props.saveSliderMouseDownClientX}
+        setActiveDay={props.setActiveDay}
       />
     </div>
   );

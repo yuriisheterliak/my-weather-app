@@ -37,7 +37,6 @@ const Hours = memo((props) => {
       <SimpleBar className={classes.List} timeout="200">
         <HoursList
           weather={props.weather}
-          activeDay={props.activeDay}
           units={props.units}
           timeFormat={timeFormat}
           isLoading={props.isLoading}

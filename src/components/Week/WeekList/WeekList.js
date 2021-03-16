@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 
 import {
   capitalizeFirstLetters,
@@ -8,7 +8,15 @@ import {
 import Day from './Day/Day';
 
 const WeekList = memo((props) => {
+  const [sliderMouseDownClientX, setSliderMouseDownClientX] = useState(null);
   let weekList = [];
+
+  const handleOnMouseDown = (e) => setSliderMouseDownClientX(e.clientX);
+  const handleOnClick = (e, index) => {
+    if (sliderMouseDownClientX === e.clientX) {
+      props.setActiveDay(index);
+    }
+  };
 
   if (!props.weather || props.isLoading) {
     for (let i = 0; i < 7; i++) {
@@ -33,8 +41,8 @@ const WeekList = memo((props) => {
           weatherID={day.id}
           isToday={index === 0}
           isActive={index === props.activeDay}
-          onClick={props.changeActiveDay}
-          onMouseDown={props.saveSliderMouseDownClientX}
+          handleOnClick={handleOnClick}
+          handleOnMouseDown={handleOnMouseDown}
         />
       );
     });

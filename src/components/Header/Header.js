@@ -12,7 +12,7 @@ const Header = memo((props) => (
       country={props.country}
       isLoading={props.isLoading}
     />
-    <TempSwitcher onChange={props.handleTempSwitching} />
+    <TempSwitcher setUnits={props.setUnits} />
     <LocationForm
       inputValue={props.inputValue}
       setInputValue={props.setInputValue}
