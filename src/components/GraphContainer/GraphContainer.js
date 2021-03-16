@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 
 import classes from './GraphContainer.module.scss';
-import { getFormattedTime } from '../../shared/utilities';
+import { getFormattedTime } from '../../utils/utilities';
 import { tabsData, precAndHumData, pressureData, windSpeedData } from './data';
 import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';

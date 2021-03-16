@@ -5,7 +5,7 @@ import {
   getFormattedTime,
   isCurrentHour,
   toFahrenheit,
-} from '../../../shared/utilities';
+} from '../../../utils/utilities';
 import classes from './HoursList.module.scss';
 import Hour from './Hour/Hour';
 import Spinner from '../../common/Spinner/Spinner';

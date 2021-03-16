@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import useUpdateEffect from '../../../hooks/useUpdateEffect';
-import { formatWeather } from '../weatherFormatter';
+import { formatWeather } from '../utils/weatherFormatter';
 
 const useFetchWeather = (
   locationData,

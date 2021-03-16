@@ -4,7 +4,7 @@ import {
   capitalizeFirstLetters,
   getDayName,
   toFahrenheit,
-} from '../../../shared/utilities';
+} from '../../../utils/utilities';
 import Day from './Day/Day';
 
 const WeekList = memo((props) => {
