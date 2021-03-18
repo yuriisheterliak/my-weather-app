@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 
-const useShadowOnFocus = () => {
+const useFocusIndicator = (useShadow = false) => {
   const [extraClass, setExtraClass] = useState('');
+  const className = useShadow ? 'shadow-on-focus' : 'outline-on-focus';
 
   useEffect(() => {
     const handleKeydown = (e) => {
-      if (e.keyCode === 9) setExtraClass('shadow-on-focus');
+      if (e.keyCode === 9) setExtraClass(className);
     };
     const handleMouseDown = () => setExtraClass('');
 
@@ -15,9 +16,9 @@ const useShadowOnFocus = () => {
       window.removeEventListener('keydown', handleKeydown);
       window.removeEventListener('mousedown', handleMouseDown);
     };
-  }, []);
+  }, [className]);
 
   return extraClass;
 };
 
-export default useShadowOnFocus;
+export default useFocusIndicator;

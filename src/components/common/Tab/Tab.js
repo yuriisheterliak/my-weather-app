@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 
 import classes from './Tab.module.scss';
-import useShadowOnFocus from '../../../hooks/useShadowOnFocus';
+import useFocusIndicator from '../../../hooks/useFocusIndicator';
 
 const Tab = memo((props) => {
-  const extraClass = useShadowOnFocus();
-  const tabClasses = [classes.Tab, extraClass];
+  const outlineOnFocusClass = useFocusIndicator();
+  const tabClasses = [classes.Tab, outlineOnFocusClass];
   if (props.active) tabClasses.push(classes.Active);
 
   return (

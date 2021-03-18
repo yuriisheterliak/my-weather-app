@@ -11,22 +11,20 @@
 
   &:after {
     content: '';
-    width: 1px;
     height: 80%;
-    background-color: #273447;
+    box-shadow: 0 0 0 0.5px #273447;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
   }
 
   &::before {
     content: '';
-    width: 1px;
     height: 80%;
-    background-color: #273447;
+    box-shadow: 0 0 0 0.5px #273447;
     position: absolute;
-    right: -1px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -65,7 +63,7 @@
   box-shadow: 0 0 5px 1px #10151e;
 
   position: absolute;
-  top: -5%;
+  top: -4%;
 }
 
 .DayName {

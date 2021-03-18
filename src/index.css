@@ -76,6 +76,11 @@ mark {
   color: inherit;
 }
 
-.shadow-on-focus:focus {
-  box-shadow: 0 0 1px 1px #f9fafb inset;
+.outline-on-focus:focus-within {
+  outline-offset: -2px;
+  outline: 1.5px solid #f9fafb;
+}
+
+.shadow-on-focus:focus-within {
+  box-shadow: 0 0 0 1.5px #f9fafb;
 }

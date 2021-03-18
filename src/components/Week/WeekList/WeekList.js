@@ -17,6 +17,11 @@ const WeekList = memo((props) => {
       props.setActiveDay(index);
     }
   };
+  const handleOnKeyDown = (e, index) => {
+    if (e.key === 'Enter') {
+      props.setActiveDay(index);
+    }
+  };
 
   if (!props.weather || props.isLoading) {
     for (let i = 0; i < 7; i++) {
@@ -43,6 +48,7 @@ const WeekList = memo((props) => {
           isActive={index === props.activeDay}
           handleOnClick={handleOnClick}
           handleOnMouseDown={handleOnMouseDown}
+          handleOnKeyDown={handleOnKeyDown}
         />
       );
     });

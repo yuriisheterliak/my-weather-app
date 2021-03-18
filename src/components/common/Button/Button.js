@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
 
-import useShadowOnFocus from '../../../hooks/useShadowOnFocus';
+import useFocusIndicator from '../../../hooks/useFocusIndicator';
 
 const Button = memo(
   ({ type, attachedClass, ariaLabel, children, ...restProps }) => {
-    const extraClass = useShadowOnFocus();
+    const outlineOnFocusClass = useFocusIndicator();
 
     return (
       <button
         type={type || 'button'}
-        className={[attachedClass, extraClass].join(' ')}
+        className={[attachedClass, outlineOnFocusClass].join(' ')}
         aria-label={ariaLabel}
         {...restProps}
       >

@@ -11,6 +11,7 @@
   }
 
   &:focus {
-    border: 1px solid #f9fafb;
+    outline-offset: -2px;
+    outline: 1.5px solid #f9fafb;
   }
 }

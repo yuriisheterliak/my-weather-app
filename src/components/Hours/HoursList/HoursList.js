@@ -45,7 +45,7 @@ const HoursList = memo((props) => {
     });
   } else hoursList = <li className={classes.NoInfo}>No information</li>;
 
-  return <ul>{hoursList}</ul>;
+  return <ul tabIndex="0">{hoursList}</ul>;
 });
 
 export default HoursList;

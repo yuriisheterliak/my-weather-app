@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
 
 import classes from './Day.module.scss';
+import useFocusIndicator from '../../../../hooks/useFocusIndicator';
 import Spinner from '../../../common/Spinner/Spinner';
 import WeatherIcon from '../../../common/WeatherIcon/WeatherIcon';
 
 const Day = memo((props) => {
-  const dayClasses = [classes.Day, 'keen-slider__slide'];
+  const outlineOnFocusClass = useFocusIndicator();
+  const dayClasses = [classes.Day, outlineOnFocusClass, 'keen-slider__slide'];
   if (props.isActive) dayClasses.push(classes.Active);
 
   return (
@@ -18,7 +20,9 @@ const Day = memo((props) => {
         <div
           className={dayClasses.join(' ')}
           onClick={(e) => props.handleOnClick(e, props.index)}
+          onKeyDown={(e) => props.handleOnKeyDown(e, props.index)}
           onMouseDown={props.handleOnMouseDown}
+          tabIndex="0"
         >
           {props.isToday === true ? (
             <span className={classes.TodayLabel}>Today</span>

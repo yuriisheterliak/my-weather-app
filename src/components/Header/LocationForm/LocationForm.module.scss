@@ -48,11 +48,13 @@
 
 .FormInvalid {
   input {
-    border: 1px solid #dd0000;
+    outline-offset: -2px;
+    outline: 1.5px solid #dd0000;
   }
 
   input:focus {
-    border: 1px solid #dd0000;
+    outline-offset: -2px;
+    outline: 1.5px solid #dd0000;
   }
 
   .Icon {
