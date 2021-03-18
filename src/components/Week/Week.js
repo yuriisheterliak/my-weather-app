@@ -4,26 +4,27 @@ import { useKeenSlider } from 'keen-slider/react';
 import classes from './Week.module.scss';
 import WeekList from './WeekList/WeekList';
 
-const Week = memo((props) => {
-  const [sliderRef] = useKeenSlider({
-    mode: 'free',
-    slidesPerView: 2,
-    breakpoints: {
-      '(min-width: 400px)': {
-        slidesPerView: 2.4,
-      },
-      '(min-width: 500px)': {
-        slidesPerView: 3,
-      },
-      '(min-width: 650px)': {
-        slidesPerView: 4,
-      },
-      '(min-width: 800px)': {
-        slidesPerView: 5,
-      },
+const keenSliderOptions = {
+  mode: 'free',
+  slidesPerView: 2,
+  breakpoints: {
+    '(min-width: 400px)': {
+      slidesPerView: 2.4,
     },
-  });
+    '(min-width: 500px)': {
+      slidesPerView: 3,
+    },
+    '(min-width: 650px)': {
+      slidesPerView: 4,
+    },
+    '(min-width: 800px)': {
+      slidesPerView: 5,
+    },
+  },
+};
 
+const Week = memo((props) => {
+  const [sliderRef] = useKeenSlider(keenSliderOptions);
   const weekClasses = [classes.Week, 'keen-slider'];
 
   return (
