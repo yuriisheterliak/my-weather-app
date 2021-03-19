@@ -3,11 +3,11 @@ import React, { memo } from 'react';
 import classes from './TempSwitcher.module.scss';
 import useFocusIndicator from '../../../hooks/useFocusIndicator';
 
-const TempSwitcher = memo((props) => {
+const TempSwitcher = memo(({ setUnits }) => {
   const shadowOnFocusClass = useFocusIndicator(true);
 
   const handleOnChange = (e) => {
-    e.target.checked ? props.setUnits('fahrenheit') : props.setUnits('celsius');
+    e.target.checked ? setUnits('fahrenheit') : setUnits('celsius');
   };
 
   return (

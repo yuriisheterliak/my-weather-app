@@ -9,25 +9,25 @@ import { ReactComponent as RainIcon } from '../../../assets/images/rain.svg';
 import { ReactComponent as SnowIcon } from '../../../assets/images/snow.svg';
 import { ReactComponent as SunIcon } from '../../../assets/images/sun.svg';
 
-const WeatherIcon = memo((props) => {
-  const id = props.weatherID;
+const WeatherIcon = memo(({ className, weatherID }) => {
+  const id = weatherID;
   let iconComponent;
 
   if (id >= 200 && id <= 232) {
-    iconComponent = <ThunderIcon className={props.className} />;
+    iconComponent = <ThunderIcon className={className} />;
   } else if ((id >= 502 && id <= 511) || (id >= 521 && id <= 531)) {
-    iconComponent = <RainIcon className={props.className} />;
+    iconComponent = <RainIcon className={className} />;
   } else if (id >= 600 && id <= 622) {
-    iconComponent = <SnowIcon className={props.className} />;
+    iconComponent = <SnowIcon className={className} />;
   } else if (id >= 701 && id <= 781) {
-    iconComponent = <FogIcon className={props.className} />;
+    iconComponent = <FogIcon className={className} />;
   } else if (id === 800) {
-    iconComponent = <SunIcon className={props.className} />;
+    iconComponent = <SunIcon className={className} />;
   } else if (id >= 801 && id <= 802) {
-    iconComponent = <LightCloudsIcon className={props.className} />;
+    iconComponent = <LightCloudsIcon className={className} />;
   } else if (id >= 803 && id <= 804) {
-    iconComponent = <CloudsIcon className={props.className} />;
-  } else iconComponent = <LightRainIcon className={props.className} />;
+    iconComponent = <CloudsIcon className={className} />;
+  } else iconComponent = <LightRainIcon className={className} />;
 
   return iconComponent;
 });

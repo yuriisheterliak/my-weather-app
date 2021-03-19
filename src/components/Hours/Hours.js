@@ -7,9 +7,9 @@ import HoursList from './HoursList/HoursList';
 import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
 
-const tabsData = [
-  { name: '24-h', params: 'h23', description: '24-hour format' },
-  { name: '12-h', params: 'h12', description: '12-hour format' },
+const tabsConfig = [
+  { name: '24-h', timeFormat: 'h23', title: '24-hour format' },
+  { name: '12-h', timeFormat: 'h12', title: '12-hour format' },
 ];
 
 const Hours = memo((props) => {
@@ -17,15 +17,15 @@ const Hours = memo((props) => {
 
   const tabs = useMemo(
     () =>
-      tabsData.map((tabData, index) => (
+      tabsConfig.map((tabConfig, index) => (
         <Tab
           onClick={setTimeFormat}
-          handlerParams={tabData.params}
-          active={timeFormat === tabData.params}
-          title={tabData.description}
+          handlerParams={tabConfig.timeFormat}
+          active={timeFormat === tabConfig.timeFormat}
+          title={tabConfig.title}
           key={index}
         >
-          {tabData.name}
+          {tabConfig.name}
         </Tab>
       )),
     [timeFormat]

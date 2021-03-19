@@ -1,18 +1,17 @@
 import React, { memo } from 'react';
 
-const CustomLegend = memo((props) => (
+const legendStyles = {
+  fontSize: '13px',
+  color: '#f9fafb',
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '10px',
+};
+
+const CustomLegend = memo(({ graphConfig }) => (
   <ul>
-    {props.commonData.map((item, index) => (
-      <li
-        key={`item-${index}`}
-        style={{
-          fontSize: '13px',
-          color: '#f9fafb',
-          display: 'flex',
-          alignItems: 'center',
-          marginBottom: '10px',
-        }}
-      >
+    {graphConfig.map((item, index) => (
+      <li key={`item-${index}`} style={legendStyles}>
         <div
           style={{
             width: '16px',

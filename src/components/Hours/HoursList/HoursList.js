@@ -10,14 +10,14 @@ import classes from './HoursList.module.scss';
 import Hour from './Hour/Hour';
 import Spinner from '../../common/Spinner/Spinner';
 
-const HoursList = memo((props) => {
+const HoursList = memo(({ weather, timeFormat, units, isLoading }) => {
   let hoursList, hoursData, timezone;
-  if (props.weather) {
-    hoursData = props.weather.hourlyWeather;
-    timezone = props.weather.timezone;
+  if (weather) {
+    hoursData = weather.hourlyWeather;
+    timezone = weather.timezone;
   }
 
-  if (props.isLoading) {
+  if (isLoading) {
     hoursList = (
       <div className={classes.Error}>
         <Spinner big />
@@ -25,12 +25,10 @@ const HoursList = memo((props) => {
     );
   } else if (hoursData && hoursData.length) {
     hoursList = hoursData.map((hour, index) => {
-      const time = getFormattedTime(hour.dt, props.timeFormat, timezone);
+      const time = getFormattedTime(hour.dt, timeFormat, timezone);
       const desc = capitalizeFirstLetters(hour.desc);
       let temp = Math.round(hour.temp);
-      if (props.units === 'fahrenheit') {
-        temp = Math.round(toFahrenheit(hour.temp));
-      }
+      if (units === 'fahrenheit') temp = Math.round(toFahrenheit(hour.temp));
 
       return (
         <Hour

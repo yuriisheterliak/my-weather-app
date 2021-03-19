@@ -12,57 +12,45 @@ import {
 
 import CustomLegend from './CustomLegend/CustomLegend';
 
-const Graph = memo((props) => (
+const gridColor = '#334759';
+const chartMargins = { top: 20, right: 25, left: -20, bottom: 0 };
+
+const Graph = memo(({ graphData, graphConfig, activeTabName }) => (
   <ResponsiveContainer aspect={1.5} maxHeight={300}>
-    <AreaChart
-      data={props.graphData}
-      margin={{
-        top: 20,
-        right: 25,
-        left: -20,
-        bottom: 0,
-      }}
-    >
+    <AreaChart data={graphData} margin={chartMargins}>
       <defs>
-        {props.commonData.map((item, index) => (
-          <linearGradient
-            key={index}
-            id={`gradient-${index}`}
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop offset="50%" stopColor={item.color} />
+        {graphConfig.map((item, index) => (
+          <linearGradient key={index} id={`gradient-${index}`} x2="0" y2="1">
+            <stop offset="5%" stopColor={item.color} />
             <stop offset="95%" stopColor={item.color} stopOpacity={0} />
           </linearGradient>
         ))}
       </defs>
-      <XAxis stroke="#334759" dataKey="name" tickLine={false} />
+      <XAxis stroke={gridColor} dataKey="name" tickLine={false} />
       <YAxis
-        stroke="#334759"
+        stroke={gridColor}
         tickLine={false}
-        domain={props.commonData[0].name === 'precipitation' ? [0, 100] : []}
+        domain={activeTabName === 'Prec&Hum' ? [0, 100] : []}
       />
-      <CartesianGrid stroke="#273949" />
+      <CartesianGrid stroke={gridColor} />
       <Tooltip />
-      {props.commonData.map((item, index) => (
+      {graphConfig.map((item, index) => (
         <Area
           type="basis"
           dataKey={item.name}
           unit={item.unit}
           stroke={item.color}
-          fillOpacity={0.7}
+          fillOpacity={0.4}
           fill={`url(#gradient-${index})`}
           key={index}
         />
       ))}
       <Legend
-        content={<CustomLegend commonData={props.commonData} />}
+        content={<CustomLegend graphConfig={graphConfig} />}
         wrapperStyle={{
           bottom: 0,
           left: 15,
-          paddingBottom: props.commonData[0].name === 'precipitation' ? 10 : 37,
+          paddingBottom: activeTabName === 'Prec&Hum' ? 10 : 37,
         }}
       />
     </AreaChart>

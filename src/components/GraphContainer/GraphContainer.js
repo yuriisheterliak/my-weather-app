@@ -1,21 +1,28 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 
 import classes from './GraphContainer.module.scss';
 import { getFormattedTime } from '../../utils/utilities';
-import { tabsData, precAndHumData, pressureData, windSpeedData } from './data';
+import useGraphConfig from './hooks/useGraphConfig';
 import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
 import Graph from './Graph/Graph';
 import Spinner from '../common/Spinner/Spinner';
 
-const GraphContainer = memo((props) => {
-  const [activeTab, setActiveTab] = useState('Prec&Hum');
+const tabsConfig = [
+  { name: 'Prec&Hum', title: 'Precipitation and Humidity' },
+  { name: 'Pressure', title: 'Pressure' },
+  { name: 'Wind Speed', title: 'Wind Speed' },
+];
 
-  let hoursData, timezone, graphData, commonData;
+const GraphContainer = memo(({ weather, isLoading }) => {
+  const { graphConfig, setGraphConfig, activeTabName } = useGraphConfig();
 
-  if (props.weather) {
-    hoursData = props.weather.hourlyWeather;
-    timezone = props.weather.timezone;
+  let graphData;
+
+  if (weather) {
+    const hoursData = weather.hourlyWeather;
+    const timezone = weather.timezone;
+
     graphData = hoursData.map((hour) => {
       return {
         name: getFormattedTime(hour.dt, 'h23', timezone),
@@ -27,35 +34,33 @@ const GraphContainer = memo((props) => {
     });
   }
 
-  if (activeTab === 'Prec&Hum') {
-    commonData = precAndHumData;
-  } else if (activeTab === 'Pressure') {
-    commonData = pressureData;
-  } else if (activeTab === 'Wind Speed') {
-    commonData = windSpeedData;
-  }
-
   let graph;
 
-  if (props.isLoading) {
+  if (isLoading) {
     graph = (
       <div className={classes.Error}>
         <Spinner big />
       </div>
     );
   } else if (graphData && graphData.length) {
-    graph = <Graph graphData={graphData} commonData={commonData} />;
+    graph = (
+      <Graph
+        graphData={graphData}
+        graphConfig={graphConfig}
+        activeTabName={activeTabName}
+      />
+    );
   } else graph = <div className={classes.NoInfo}>No information</div>;
 
-  const tabs = tabsData.map((tabData, index) => (
+  const tabs = tabsConfig.map((tabConfig, index) => (
     <Tab
-      onClick={setActiveTab}
-      handlerParams={tabData.name}
-      active={activeTab === tabData.name}
-      title={tabData.description}
+      onClick={setGraphConfig}
+      handlerParams={tabConfig.name}
+      active={activeTabName === tabConfig.name}
+      title={tabConfig.title}
       key={index}
     >
-      {tabData.name}
+      {tabConfig.name}
     </Tab>
   ));
 
