@@ -17,6 +17,7 @@ const Header = memo((props) => (
       inputValue={props.inputValue}
       setInputValue={props.setInputValue}
       handleLocationSubmit={props.handleLocationSubmit}
+      offline={props.offline}
       error={props.error}
     />
   </div>

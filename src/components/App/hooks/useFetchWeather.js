@@ -2,19 +2,23 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import useUpdateEffect from '../../../hooks/useUpdateEffect';
+import useLocalStorage from '../../../hooks/useLocalStorage';
 import { formatWeather } from '../utils/weatherFormatter';
 
 const useFetchWeather = (
   locationData,
   setInputValue,
   setError,
-  locationErrorRef
+  locationErrorRef,
+  offline
 ) => {
-  const [weather, setWeather] = useState(null);
-  const [weatherIsLoading, setWeatherIsLoading] = useState(true);
+  const [weather, setWeather] = useLocalStorage('weatherData', null);
+  const [weatherIsLoading, setWeatherIsLoading] = useState(
+    offline ? false : true
+  );
 
   useUpdateEffect(async () => {
-    if (locationErrorRef.current) return;
+    if (locationErrorRef.current || offline) return;
 
     try {
       setWeatherIsLoading(true);

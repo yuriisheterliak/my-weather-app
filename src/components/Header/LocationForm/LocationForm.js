@@ -9,20 +9,24 @@ import useClickOutside from '../../../hooks/useClickOutside';
 import useFetchSuggestions from './hooks/useFetchSuggestions';
 
 const LocationForm = memo(
-  ({ inputValue, setInputValue, handleLocationSubmit, error }) => {
+  ({ inputValue, setInputValue, handleLocationSubmit, offline, error }) => {
     const {
       suggestions,
       clearSuggestions,
       cancelSuggestionsFetching,
-    } = useFetchSuggestions(inputValue);
+    } = useFetchSuggestions(inputValue, offline);
     const formRef = useRef();
 
     useClickOutside(formRef, clearSuggestions, suggestions.length);
 
     const handleOnSubmit = (e) => {
+      e.preventDefault();
+      if (offline) return;
+      if (!inputValue || !inputValue.trim()) return;
+
       cancelSuggestionsFetching();
       clearSuggestions();
-      handleLocationSubmit(inputValue, e);
+      handleLocationSubmit(inputValue);
     };
 
     const handleInputReset = () => {

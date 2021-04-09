@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 import useFocusIndicator from '../../../hooks/useFocusIndicator';
 
 const Button = memo(
-  ({ type, attachedClass, ariaLabel, children, ...restProps }) => {
-    const outlineOnFocusClass = useFocusIndicator();
+  ({ type, attachedClass, useShadow, ariaLabel, children, ...restProps }) => {
+    const outlineOnFocusClass = useFocusIndicator(useShadow);
 
     return (
       <button

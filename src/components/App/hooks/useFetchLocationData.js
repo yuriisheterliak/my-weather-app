@@ -1,23 +1,44 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import useLocalStorage from '../../../hooks/useLocalStorage';
+
 const defaultLocationData = {
+  locationRequest: null,
   location: null,
   country: null,
   lat: null,
   lng: null,
 };
 
-const useFetchLocationData = (locationName, setError, locationErrorRef) => {
-  const [locationData, setLocationData] = useState(defaultLocationData);
+const useFetchLocationData = (
+  locationName,
+  setError,
+  locationErrorRef,
+  offline
+) => {
+  const [locationData, setLocationData] = useLocalStorage(
+    'locationData',
+    defaultLocationData
+  );
   const [locationIsLoading, setLocationIsLoading] = useState(true);
 
   useEffect(() => {
     const getLocationData = async (locationName) => {
-      let locationData = defaultLocationData;
+      const storedLocationData = JSON.parse(
+        localStorage.getItem('locationData')
+      );
+      const locationDataAreStored =
+        storedLocationData.locationRequest === locationName;
+      let newLocationData = defaultLocationData;
       let locationError = null;
 
       try {
+        if (offline || locationDataAreStored) {
+          newLocationData = storedLocationData;
+          return;
+        }
+
         setLocationIsLoading(true);
 
         const { data } = await axios.get(
@@ -25,7 +46,8 @@ const useFetchLocationData = (locationName, setError, locationErrorRef) => {
         );
         const locationInfo = data.features[0].properties;
 
-        locationData = {
+        newLocationData = {
+          locationRequest: locationName,
           location:
             locationInfo.town ||
             locationInfo.city ||
@@ -39,14 +61,14 @@ const useFetchLocationData = (locationName, setError, locationErrorRef) => {
         locationError = 'Geocoding API Error! Try again...';
       } finally {
         locationErrorRef.current = locationError;
-        setLocationIsLoading(false);
-        setLocationData(locationData);
         setError(locationError);
+        setLocationIsLoading(false);
+        setLocationData(newLocationData);
       }
     };
 
     getLocationData(locationName.value);
-  }, [locationName, setError, locationErrorRef]);
+  }, [locationName, setLocationData, setError, locationErrorRef, offline]);
 
   return { locationData, locationIsLoading };
 };

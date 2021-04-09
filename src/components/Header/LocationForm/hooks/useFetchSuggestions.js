@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { debounce } from 'lodash';
 import axios from 'axios';
 
-const useFetchSuggestions = (locationName) => {
+const useFetchSuggestions = (locationName, offline) => {
   const [suggestions, setSuggestions] = useState([]);
   const fetchingIsCancelled = useRef(false);
 
@@ -26,8 +26,8 @@ const useFetchSuggestions = (locationName) => {
 
   useEffect(() => {
     fetchingIsCancelled.current = false;
-    debouncedFetchSuggestions(locationName);
-  }, [debouncedFetchSuggestions, locationName]);
+    if (!offline) debouncedFetchSuggestions(locationName);
+  }, [debouncedFetchSuggestions, locationName, offline]);
 
   return { suggestions, clearSuggestions, cancelSuggestionsFetching };
 };

@@ -2,8 +2,10 @@ import React, { useState, useCallback, useRef } from 'react';
 
 import useFetchLocationData from './hooks/useFetchLocationData';
 import useFetchWeather from './hooks/useFetchWeather';
+import useOfflineStatus from './hooks/useOfflineStatus';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Header from '../Header/Header';
+import OfflineNotification from '../OfflineNotification/OfflineNotification';
 import Week from '../Week/Week';
 import Hours from '../Hours/Hours';
 import GraphContainer from '../GraphContainer/GraphContainer';
@@ -12,6 +14,7 @@ import classes from './App.module.scss';
 const defaultLocationName = { value: 'Kyiv' };
 
 const App = () => {
+  const offline = useOfflineStatus();
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [units, setUnits] = useState('celsius');
@@ -27,20 +30,19 @@ const App = () => {
   const { locationData, locationIsLoading } = useFetchLocationData(
     locationName,
     setError,
-    locationErrorRef
+    locationErrorRef,
+    offline
   );
   const { weather, weatherIsLoading } = useFetchWeather(
     locationData,
     setInputValue,
     setError,
-    locationErrorRef
+    locationErrorRef,
+    offline
   );
 
   const handleLocationSubmit = useCallback(
-    (value, e) => {
-      e.preventDefault();
-      if (!value || !value.trim()) return;
-
+    (value) => {
       setLocationName((prevValue) => {
         if (!error) prevLocationName.current = prevValue;
         return { value };
@@ -59,8 +61,10 @@ const App = () => {
         location={locationData.location}
         country={locationData.country}
         isLoading={locationIsLoading}
+        offline={offline}
         error={error}
       />
+      {offline ? <OfflineNotification /> : null}
       {error ? (
         <div className={classes.Error}>Something went wrong!</div>
       ) : (

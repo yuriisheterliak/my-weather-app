@@ -6,6 +6,7 @@ import {
   toFahrenheit,
 } from '../../../utils/utilities';
 import Day from './Day/Day';
+import classes from './WeekList.module.scss';
 
 const WeekList = memo(
   ({ weather, isLoading, activeDay, setActiveDay, units }) => {
@@ -20,10 +21,12 @@ const WeekList = memo(
       if (e.key === 'Enter') setActiveDay(index);
     };
 
-    if (!weather || isLoading) {
+    if (isLoading) {
       for (let i = 0; i < 7; i++) {
         weekList.push(<Day key={i} isLoading />);
       }
+    } else if (!weather) {
+      weekList = <div className={classes.NoInfo}>No information</div>;
     } else {
       weekList = weather.map((day, index) => {
         const dayName = getDayName(day.dt);
