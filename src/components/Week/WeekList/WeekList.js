@@ -3,6 +3,7 @@ import React, { memo, useState } from 'react';
 import {
   capitalizeFirstLetters,
   getDayName,
+  isToday,
   toFahrenheit,
 } from '../../../utils/utilities';
 import Day from './Day/Day';
@@ -42,7 +43,7 @@ const WeekList = memo(
             temp={temp}
             desc={desc}
             weatherID={day.id}
-            isToday={index === 0}
+            isToday={isToday(day.dt)}
             isActive={index === activeDay}
             handleOnClick={handleOnClick}
             handleOnMouseDown={handleOnMouseDown}

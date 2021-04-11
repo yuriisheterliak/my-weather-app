@@ -35,3 +35,13 @@ export const getDayOfMonth = (timestampSec, timezone) => {
     timeZone: timezone,
   });
 };
+
+export const isToday = (timestampSec) => {
+  const todayDate = new Date();
+  const someDate = new Date(timestampSec * 1000);
+  return (
+    someDate.getDate() === todayDate.getDate() &&
+    someDate.getMonth() === todayDate.getMonth() &&
+    someDate.getFullYear() === todayDate.getFullYear()
+  );
+};
