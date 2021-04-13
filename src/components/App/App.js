@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useRef } from 'react';
 
+import useServiceWorker from './hooks/useServiceWorker';
 import useFetchLocationData from './hooks/useFetchLocationData';
 import useFetchWeather from './hooks/useFetchWeather';
 import useOfflineStatus from './hooks/useOfflineStatus';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Header from '../Header/Header';
-import OfflineNotification from '../OfflineNotification/OfflineNotification';
+import Notification from '../Notification/Notification';
 import Week from '../Week/Week';
 import Hours from '../Hours/Hours';
 import GraphContainer from '../GraphContainer/GraphContainer';
@@ -15,6 +16,7 @@ const defaultLocationName = { value: 'Kyiv' };
 
 const App = () => {
   const offline = useOfflineStatus();
+  const { update, setUpdate, waitingWorker } = useServiceWorker();
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [units, setUnits] = useState('celsius');
@@ -41,6 +43,11 @@ const App = () => {
     offline
   );
 
+  const handleUpdate = () => {
+    waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+    setUpdate(false);
+  };
+
   const handleLocationSubmit = useCallback(
     (value) => {
       setLocationName((prevValue) => {
@@ -64,7 +71,13 @@ const App = () => {
         offline={offline}
         error={error}
       />
-      {offline ? <OfflineNotification /> : null}
+      {offline || update ? (
+        <Notification
+          offline={offline}
+          update={update}
+          handleUpdate={handleUpdate}
+        />
+      ) : null}
       {error ? (
         <div className={classes.Error}>Something went wrong!</div>
       ) : (
