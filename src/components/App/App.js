@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 import useServiceWorker from './hooks/useServiceWorker';
 import useFetchLocationData from './hooks/useFetchLocationData';

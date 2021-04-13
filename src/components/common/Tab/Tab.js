@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import classes from './Tab.module.scss';
 import useFocusIndicator from '../../../hooks/useFocusIndicator';

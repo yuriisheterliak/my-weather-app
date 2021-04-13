@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import { ReactComponent as ThunderIcon } from '../../../assets/images/rain-thunder.svg';
 import { ReactComponent as CloudsIcon } from '../../../assets/images/cloud.svg';

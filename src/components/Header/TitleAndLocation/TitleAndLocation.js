@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import classes from './TitleAndLocation.module.scss';
 import { ReactComponent as LocationIcon } from '../../../assets/images/location.svg';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ReactComponent as SpinnerSvg } from '../../../assets/images/spinner.svg';
 import classes from './Spinner.module.scss';
 

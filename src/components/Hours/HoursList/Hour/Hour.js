@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import classes from './Hour.module.scss';
 import WeatherIcon from '../../../common/WeatherIcon/WeatherIcon';

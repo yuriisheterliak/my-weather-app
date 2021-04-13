@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 
 import classes from './Week.module.scss';

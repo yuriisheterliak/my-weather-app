@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import classes from './LocationAutocomplete.module.scss';
 import SuggestionsList from './SuggestionsList/SuggestionsList';

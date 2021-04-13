@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import classes from './LocationForm.module.scss';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';

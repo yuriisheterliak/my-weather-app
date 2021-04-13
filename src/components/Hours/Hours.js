@@ -1,4 +1,4 @@
-import React, { useState, memo, useMemo } from 'react';
+import { useState, memo, useMemo } from 'react';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
