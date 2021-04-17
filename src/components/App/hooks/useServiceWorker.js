@@ -1,21 +1,27 @@
 import { useState, useEffect } from 'react';
 
-import * as serviceWorker from '../../../serviceWorkerRegistration';
+import { register } from '../../../serviceWorkerRegistration';
+import useUpdateEffect from '../../../hooks/useUpdateEffect';
 
 const useServiceWorker = () => {
-  const [update, setUpdate] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState(null);
 
   useEffect(() => {
-    serviceWorker.register({
+    register({
       onUpdate: (registration) => {
-        setUpdate(true);
         setWaitingWorker(registration.waiting);
       },
     });
   }, []);
 
-  return { update, setUpdate, waitingWorker };
+  useUpdateEffect(async () => {
+    const registration = await navigator.serviceWorker.getRegistration();
+    if (registration && registration.waiting) {
+      setWaitingWorker(registration.waiting);
+    }
+  });
+
+  return { waitingWorker, setWaitingWorker };
 };
 
 export default useServiceWorker;

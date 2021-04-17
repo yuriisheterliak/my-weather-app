@@ -16,7 +16,7 @@ const defaultLocationName = { value: 'Kyiv' };
 
 const App = () => {
   const offline = useOfflineStatus();
-  const { update, setUpdate, waitingWorker } = useServiceWorker();
+  const { waitingWorker, setWaitingWorker } = useServiceWorker();
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [units, setUnits] = useState('celsius');
@@ -45,7 +45,7 @@ const App = () => {
 
   const handleUpdate = () => {
     waitingWorker.postMessage({ type: 'SKIP_WAITING' });
-    setUpdate(false);
+    setWaitingWorker(null);
   };
 
   const handleLocationSubmit = useCallback(
@@ -71,10 +71,10 @@ const App = () => {
         offline={offline}
         error={error}
       />
-      {offline || update ? (
+      {offline || waitingWorker ? (
         <Notification
           offline={offline}
-          update={update}
+          waitingWorker={waitingWorker}
           handleUpdate={handleUpdate}
         />
       ) : null}

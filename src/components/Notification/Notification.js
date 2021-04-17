@@ -3,7 +3,7 @@ import { ReactComponent as UpdateIcon } from '../../assets/images/update.svg';
 import Button from '../common/Button/Button';
 import classes from './Notification.module.scss';
 
-const Notification = ({ offline, update, handleUpdate }) => {
+const Notification = ({ offline, waitingWorker, handleUpdate }) => {
   const icon = offline ? (
     <NoWifiIcon className={classes.Icon} />
   ) : (
@@ -17,7 +17,7 @@ const Notification = ({ offline, update, handleUpdate }) => {
   const buttonName = offline ? 'Reload' : 'Update';
 
   const handleClick = () => {
-    update && handleUpdate();
+    waitingWorker && handleUpdate();
     window.location.reload();
   };
 
