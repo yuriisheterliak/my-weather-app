@@ -15,6 +15,8 @@ const useServiceWorker = () => {
   }, []);
 
   useUpdateEffect(async () => {
+    if (!('serviceWorker' in navigator)) return;
+
     const registration = await navigator.serviceWorker.getRegistration();
     if (registration && registration.waiting) {
       setWaitingWorker(registration.waiting);

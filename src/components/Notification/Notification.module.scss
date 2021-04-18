@@ -1,6 +1,8 @@
 .Notification {
+  width: calc(100% - 20px);
   color: #f9fafb;
-  border: 2px solid #f9fafb;
+  background-color: #10151e;
+  border: 1px solid #f9fafb;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,33 +10,45 @@
   text-align: center;
   padding: 15px 10px 10px;
 
-  grid-column: 2 / 4;
-  grid-row: 2 / 3;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 1000;
 
   @media (min-width: 600px) {
     width: 90vw;
     max-width: 800px;
-    justify-self: center;
   }
 }
 
 .Header {
   display: flex;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .Icon {
   height: 22px;
   fill: #f9fafb;
-  margin: -3px 7px 0 0;
+  margin: -4px 7px 0 0;
 }
 
-.Button {
+.ReloadButton {
   font-size: 14px;
-  background-color: #10151e;
-  box-shadow: 0 0 2px 1px #10151e;
+  background-color: #5b5ca2;
+  box-shadow: 0 0 2px 1px #5b5ca2;
   border-radius: 50px;
-  padding: 7px 14px;
-  margin-top: 5px;
+  padding: 4px 12px;
+  margin-top: 10px;
+}
+
+.CloseButton {
+  width: 25px;
+  height: 25px;
+  fill: #f9fafb;
+  padding: 5px;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

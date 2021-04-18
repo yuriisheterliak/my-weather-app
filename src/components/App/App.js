@@ -43,9 +43,12 @@ const App = () => {
     offline
   );
 
-  const handleUpdate = () => {
-    waitingWorker.postMessage({ type: 'SKIP_WAITING' });
-    setWaitingWorker(null);
+  const handleNotificationClick = (update) => {
+    if (update) {
+      waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+      setWaitingWorker(null);
+    }
+    window.location.reload();
   };
 
   const handleLocationSubmit = useCallback(
@@ -71,13 +74,12 @@ const App = () => {
         offline={offline}
         error={error}
       />
-      {offline || waitingWorker ? (
-        <Notification
-          offline={offline}
-          waitingWorker={waitingWorker}
-          handleUpdate={handleUpdate}
-        />
-      ) : null}
+      {waitingWorker && (
+        <Notification status="update" handleClick={handleNotificationClick} />
+      )}
+      {offline && (
+        <Notification status="offline" handleClick={handleNotificationClick} />
+      )}
       {error ? (
         <div className={classes.Error}>Something went wrong!</div>
       ) : (
