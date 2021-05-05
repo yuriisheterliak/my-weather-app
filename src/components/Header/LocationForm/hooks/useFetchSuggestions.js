@@ -1,10 +1,10 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 import axios from 'axios';
 
 const useFetchSuggestions = (locationName, offline) => {
   const [suggestions, setSuggestions] = useState([]);
-  const fetchingIsCancelled = useRef(false);
+  const fetchingIsAllowedRef = useRef(true);
 
   const fetchSuggestions = useCallback(async (locationName) => {
     if (!locationName || !locationName.trim()) return;
@@ -12,24 +12,30 @@ const useFetchSuggestions = (locationName, offline) => {
     const baseURL = '/.netlify/functions/fetch-location';
     const { data } = await axios.get(baseURL, { params: { locationName } });
 
-    if (fetchingIsCancelled.current) return;
-    setSuggestions(data.features);
+    if (fetchingIsAllowedRef.current) setSuggestions(data.features);
   }, []);
 
   const debouncedFetchSuggestions = useMemo(
-    () => debounce((locationName) => fetchSuggestions(locationName), 200),
+    () => throttle((locationName) => fetchSuggestions(locationName), 200),
     [fetchSuggestions]
   );
 
   const clearSuggestions = () => setSuggestions([]);
-  const cancelSuggestionsFetching = () => (fetchingIsCancelled.current = true);
+  const allowSuggestionsFetching = () => (fetchingIsAllowedRef.current = true);
+  const preventSuggestionsFetching = () => {
+    fetchingIsAllowedRef.current = false;
+  };
 
   useEffect(() => {
-    fetchingIsCancelled.current = false;
     if (!offline) debouncedFetchSuggestions(locationName);
   }, [debouncedFetchSuggestions, locationName, offline]);
 
-  return { suggestions, clearSuggestions, cancelSuggestionsFetching };
+  return {
+    suggestions,
+    clearSuggestions,
+    allowSuggestionsFetching,
+    preventSuggestionsFetching,
+  };
 };
 
 export default useFetchSuggestions;

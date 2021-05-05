@@ -8,6 +8,7 @@ const LocationAutocomplete = ({
   clearSuggestions,
   inputValue,
   setInputValue,
+  allowSuggestionsFetching,
 }) => {
   const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] = useState(
     -1
@@ -28,6 +29,7 @@ const LocationAutocomplete = ({
   const handleOnChange = (e) => {
     const newInputValue = e.target.value;
     clearSuggestions();
+    allowSuggestionsFetching();
     setInputValue(newInputValue);
   };
 

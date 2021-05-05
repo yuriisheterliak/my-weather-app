@@ -13,7 +13,8 @@ const LocationForm = memo(
     const {
       suggestions,
       clearSuggestions,
-      cancelSuggestionsFetching,
+      allowSuggestionsFetching,
+      preventSuggestionsFetching,
     } = useFetchSuggestions(inputValue, offline);
     const formRef = useRef();
 
@@ -24,7 +25,7 @@ const LocationForm = memo(
       if (offline) return;
       if (!inputValue || !inputValue.trim()) return;
 
-      cancelSuggestionsFetching();
+      preventSuggestionsFetching();
       clearSuggestions();
       handleLocationSubmit(inputValue);
     };
@@ -50,6 +51,7 @@ const LocationForm = memo(
           clearSuggestions={clearSuggestions}
           inputValue={inputValue}
           setInputValue={setInputValue}
+          allowSuggestionsFetching={allowSuggestionsFetching}
         />
         {inputValue ? (
           <Button
