@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 
 import classes from './GraphContainer.module.scss';
 import { getFormattedTime } from '../../utils/utilities';
@@ -7,6 +7,7 @@ import BlockHeader from '../common/BlockHeader/BlockHeader';
 import Tab from '../common/Tab/Tab';
 import Graph from './Graph/Graph';
 import Spinner from '../common/Spinner/Spinner';
+import { WeatherIsLoadingContext } from '../App/App';
 
 const tabsConfig = [
   { name: 'Prec&Hum', title: 'Precipitation and Humidity' },
@@ -14,8 +15,9 @@ const tabsConfig = [
   { name: 'Wind Speed', title: 'Wind Speed' },
 ];
 
-const GraphContainer = memo(({ weather, isLoading }) => {
+const GraphContainer = memo(({ weather }) => {
   const { graphConfig, setGraphConfig, activeTabName } = useGraphConfig();
+  const isLoading = useContext(WeatherIsLoadingContext);
 
   let graphData;
 

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 
 import {
   capitalizeFirstLetters,
@@ -9,9 +9,12 @@ import {
 import classes from './HoursList.module.scss';
 import Hour from './Hour/Hour';
 import Spinner from '../../common/Spinner/Spinner';
+import { WeatherIsLoadingContext } from '../../App/App';
 
-const HoursList = memo(({ weather, timeFormat, units, isLoading }) => {
+const HoursList = memo(({ weather, timeFormat, units }) => {
+  const isLoading = useContext(WeatherIsLoadingContext);
   let hoursList, hoursData, timezone;
+
   if (weather) {
     hoursData = weather.hourlyWeather;
     timezone = weather.timezone;

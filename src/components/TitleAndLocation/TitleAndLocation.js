@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
 import classes from './TitleAndLocation.module.scss';
-import { ReactComponent as LocationIcon } from '../../../assets/images/location.svg';
-import Spinner from '../../common/Spinner/Spinner';
+import { ReactComponent as LocationIcon } from '../../assets/images/location.svg';
+import Spinner from '../common/Spinner/Spinner';
 
 const TitleAndLocation = memo(({ location, country, isLoading }) => {
   const locationText =

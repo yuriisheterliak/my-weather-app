@@ -3,43 +3,37 @@ import { useState, useEffect } from 'react';
 import classes from './LocationAutocomplete.module.scss';
 import SuggestionsList from './SuggestionsList/SuggestionsList';
 
-const LocationAutocomplete = ({
-  suggestions,
-  clearSuggestions,
-  inputValue,
-  setInputValue,
-  allowSuggestionsFetching,
-}) => {
+const LocationAutocomplete = (props) => {
   const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] = useState(
     -1
   );
 
-  useEffect(() => setHighlightedSuggestionIndex(-1), [suggestions]);
+  useEffect(() => setHighlightedSuggestionIndex(-1), [props.suggestions]);
 
   const selectSuggestion = (index = highlightedSuggestionIndex) => {
-    const locationName = suggestions[index].properties.formatted;
-    setInputValue(locationName);
+    const locationName = props.suggestions[index].properties.formatted;
+    props.setInputValue(locationName);
   };
 
   const handleSuggestionOnClick = (index) => {
     selectSuggestion(index);
-    clearSuggestions();
+    props.clearSuggestions();
   };
 
   const handleOnChange = (e) => {
     const newInputValue = e.target.value;
-    clearSuggestions();
-    allowSuggestionsFetching();
-    setInputValue(newInputValue);
+    props.clearSuggestions();
+    props.allowSuggestionsFetching();
+    props.setInputValue(newInputValue);
   };
 
   const handleOnKeyDown = (e) => {
-    if (!suggestions.length) return;
+    if (!props.suggestions.length) return;
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const index =
-        highlightedSuggestionIndex !== suggestions.length - 1
+        highlightedSuggestionIndex !== props.suggestions.length - 1
           ? highlightedSuggestionIndex + 1
           : 0;
       setHighlightedSuggestionIndex(index);
@@ -48,14 +42,14 @@ const LocationAutocomplete = ({
       const index =
         highlightedSuggestionIndex > 0
           ? highlightedSuggestionIndex - 1
-          : suggestions.length - 1;
+          : props.suggestions.length - 1;
       setHighlightedSuggestionIndex(index);
     } else if (e.key === 'Enter' && highlightedSuggestionIndex !== -1) {
       e.preventDefault();
       selectSuggestion();
-      clearSuggestions();
+      props.clearSuggestions();
     } else if (e.key === 'Tab') {
-      clearSuggestions();
+      props.clearSuggestions();
     }
   };
 
@@ -68,15 +62,15 @@ const LocationAutocomplete = ({
         id="searchInput"
         className={classes.Input}
         type="text"
-        value={inputValue}
+        value={props.inputValue}
         placeholder="Enter Your Location..."
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
-      {suggestions.length ? (
+      {props.suggestions.length ? (
         <SuggestionsList
           highlightedSuggestionIndex={highlightedSuggestionIndex}
-          suggestions={suggestions}
+          suggestions={props.suggestions}
           handleSuggestionOnClick={handleSuggestionOnClick}
         />
       ) : null}

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import classes from './TempSwitcher.module.scss';
-import useFocusIndicator from '../../../hooks/useFocusIndicator';
+import useFocusIndicator from '../../hooks/useFocusIndicator';
 
 const TempSwitcher = memo(({ setUnits }) => {
   const shadowOnFocusClass = useFocusIndicator(true);

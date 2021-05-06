@@ -12,7 +12,7 @@ const tabsConfig = [
   { name: '12-h', timeFormat: 'h12', title: '12-hour format' },
 ];
 
-const Hours = memo((props) => {
+const Hours = memo(({ weather, units }) => {
   const [timeFormat, setTimeFormat] = useState('h23');
 
   const tabs = useMemo(
@@ -35,12 +35,7 @@ const Hours = memo((props) => {
     <div className={classes.Hours}>
       <BlockHeader>{tabs}</BlockHeader>
       <SimpleBar className={classes.List} timeout="200">
-        <HoursList
-          weather={props.weather}
-          units={props.units}
-          timeFormat={timeFormat}
-          isLoading={props.isLoading}
-        />
+        <HoursList weather={weather} units={units} timeFormat={timeFormat} />
       </SimpleBar>
     </div>
   );

@@ -1,11 +1,11 @@
 import { memo, useRef } from 'react';
 
 import classes from './LocationForm.module.scss';
-import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
-import { ReactComponent as ClearIcon } from '../../../assets/images/clear.svg';
+import { ReactComponent as SearchIcon } from '../../assets/images/search.svg';
+import { ReactComponent as ClearIcon } from '../../assets/images/clear.svg';
 import LocationAutocomplete from './LocationAutocomplete/LocationAutocomplete';
-import Button from '../../common/Button/Button';
-import useClickOutside from '../../../hooks/useClickOutside';
+import Button from '../common/Button/Button';
+import useClickOutside from '../../hooks/useClickOutside';
 import useFetchSuggestions from './hooks/useFetchSuggestions';
 
 const LocationForm = memo(
