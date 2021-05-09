@@ -1,6 +1,6 @@
 # :snowflake: My Weather App
 
-Simple weather app built with [React.js](https://reactjs.org) and [Netlify](https://www.netlify.com/) lambda functions.
+A simple weather app built with [React.js](https://reactjs.org) and [Netlify](https://www.netlify.com/) lambda functions.
 
 <p>
   <img alt="Desktop Gif" style="width: 100%; margin-right: 10px;" src="https://user-images.githubusercontent.com/55920656/117145506-e658c900-adbb-11eb-9851-3d5f29d50d96.gif">
@@ -81,7 +81,7 @@ WEATHER_API_KEY="your weather API key"
 5. The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), but for [Netlify](https://www.netlify.com/)'s lambda functions work some npm scripts was added:
 
 - `netlify dev` - starts dev server (uses `react-scripts start`)
-- `netlify deploy -p` - deploy project on [Netlify](https://www.netlify.com/) (don't forget to run `react-scripts build` before that)
+- `netlify deploy -p` - deploys project on [Netlify](https://www.netlify.com/) (don't forget to run `react-scripts build` before that)
 
 ## :art: Inspiration
 
