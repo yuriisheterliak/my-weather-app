@@ -28,13 +28,13 @@ I created this project to learn [React](https://reactjs.org), how to build [PWA]
 
 ## :droplet: Features
 
-- weather forecasts for 7 days and 48 hours
+- 7 day, 48 hour weather forecast
 - charts for pressure, wind speed and comparison of precipitation probability and humidity
 - location autocomplete
 - time format and temperature units switching
 - good keyboard accessibility
-- installable on Chrome, Edge(Chromium) and mobile's Opera and Firefox
-- works offline (shows previously fetched data)
+- compatible with Chrome, Edge (Chromium) and mobile's Opera and Firefox
+- offline functionality (shows previously fetched data)
 
 ## :rocket: Technologies
 
@@ -67,7 +67,7 @@ I created this project to learn [React](https://reactjs.org), how to build [PWA]
 $ npm install
 ```
 
-3. The project uses [Netlify](https://www.netlify.com/) serverless functions to keep your API keys in secret, so you must create a project on [Netlify](https://www.netlify.com/) and connect repo. See [Netlify documentation](https://docs.netlify.com/).
+3. The project uses [Netlify](https://www.netlify.com/) serverless functions to keep your API keys hidden, so you must create a project on [Netlify](https://www.netlify.com/) and connect repo. See [Netlify documentation](https://docs.netlify.com/).
    > _The project uses [these](#umbrella-used-apis) APIs, so you must have API keys before next step._
 4. Create a file `.env` in repo directory to include all the necessary API keys. Add next in `.env`:
 
@@ -78,7 +78,7 @@ WEATHER_API_KEY="your weather API key"
 
 > _If you want to host project on [Netlify](https://www.netlify.com/) you should also add those environment variables containing API keys on server (Site settings > Build & deploy > Environment)._
 
-5. The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), but for [Netlify](https://www.netlify.com/)'s lambda functions work some npm scripts was added:
+5. The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), but for [Netlify](https://www.netlify.com/)'s lambda functions to work some npm scripts was added:
 
 - `netlify dev` - starts dev server (uses `react-scripts start`)
 - `netlify deploy -p` - deploys project on [Netlify](https://www.netlify.com/) (don't forget to run `react-scripts build` before that)
